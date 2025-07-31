@@ -1,20 +1,15 @@
-"use client";
-import classes from "./footer.module.css";
+import Link from "next/link";
+
+import ScrollTopBtn from "../scrollTopBtn/ScrollTopBtn";
 
 import { TiSocialFacebook } from "react-icons/ti";
 import { FaLinkedin } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import { RxInstagramLogo } from "react-icons/rx";
-import { FaArrowUp } from "react-icons/fa";
-import Link from "next/link";
+
+import classes from "./footer.module.css";
 
 export default function Footer() {
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }
   return (
     <footer className={classes.footer}>
       <div className={classes.footer__container}>
@@ -69,9 +64,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <button className={classes.footer__button} onClick={scrollToTop}>
-            <FaArrowUp /> Back To Top
-          </button>
+          <ScrollTopBtn className={classes.footer__button} />
         </div>
         <div className={classes.footer__details}>
           <div className={classes.footer__navigation}>

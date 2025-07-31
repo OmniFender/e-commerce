@@ -1,8 +1,6 @@
 .footer {
-  position: fixed;
+  position: relative;
   bottom: 0;
-  left: 0;
-  right: 0;
   background-color: var(--bg-primary-color);
   padding: var(--spacing-3xl);
 }
