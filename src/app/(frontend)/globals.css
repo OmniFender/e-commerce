@@ -7,6 +7,8 @@
   --accent-color: #ff385c;
   --accent-hover: #e41d57;
   --text-color: #292929;
+  --text-color-light: #6c757d;
+  /* --text-color-light: #2c2c2c; */
   --bg-primary-color: #f8f9fa;
 
   --border-radius: 32px;

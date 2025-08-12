@@ -1,4 +1,4 @@
-.footer__button {
+.Btn_scrollTop {
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -18,7 +18,7 @@
     transform: translate(0, 0);
   }
 }
-.footer__button:hover {
+.Btn_scrollTop:hover {
   background-color: var(--accent-hover);
   color: var(--primary-color);
   cursor: pointer;

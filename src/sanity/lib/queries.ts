@@ -12,12 +12,13 @@ export const FOOTER_INFO = defineQuery(`
 }`);
 
 export const FOOTER_NEW_SECTION = defineQuery(`
-*[_type == "footerAdditionalSection"]{
+*[_type == "footerAdditionalSection" ]{
   _id,
+  _createdAt,
     sectionList[]{
       itemName,
       _key,
       url,
     },
     sectionTitle
-}`);
+} | order(_createdAt asc)`);

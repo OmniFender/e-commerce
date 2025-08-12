@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import classes from "./scrollTopBtn.module.scss";
+import classes from "./scroll-top-btn.module.scss";
 
 export default function ScrollTopBtn({
   children,
@@ -31,7 +31,7 @@ export default function ScrollTopBtn({
   };
 
   return isVisible ? (
-    <button onClick={scrollToTop} className={classes.footer__button}>
+    <button onClick={scrollToTop} className={classes.Btn_scrollTop}>
       {children}
     </button>
   ) : null;

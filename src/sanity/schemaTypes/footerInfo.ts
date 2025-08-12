@@ -24,7 +24,7 @@ export const footerInfo = defineType({
     defineField({
       name: "address",
       title: "Address",
-      type: "string",
+      type: "url",
       description:
         "your bussiness physical address for easy arrive, please make it location link",
     }),
@@ -41,6 +41,7 @@ export const footerInfo = defineType({
       description: "your region code followed by your bussiness phone number  ",
       type: "string",
       placeholder: "+201234567891",
+      
     }),
   ],
 });

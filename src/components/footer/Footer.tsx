@@ -1,8 +1,25 @@
+interface FooterInfo {
+  description?: string | null;
+  emailAddress?: string | null;
+  phoneNumber?: string | null;
+  address?: string | null;
+}
+interface FooterNewSectionItem {
+  _key: string | null;
+  itemName: string | null;
+  url?: string | null;
+}
+interface FooterNewSection {
+  _id: string | null;
+  sectionTitle: string | null;
+  sectionList?: FooterNewSectionItem[] | null;
+}
+
 import Link from "next/link";
 
-import ScrollTopBtn from "../scrollTopBtn/ScrollTopBtn";
+import ScrollTopBtn from "../scroll-top-btn/ScrollTopBtn";
 
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { FOOTER_INFO, FOOTER_NEW_SECTION } from "@/sanity/lib/queries";
 
 import { TiSocialFacebook } from "react-icons/ti";
@@ -18,23 +35,59 @@ import { RxInstagramLogo } from "react-icons/rx";
 
 import classes from "./footer.module.scss";
 
-const options = { next: { revalidate: 60 } };
-
 export default async function Footer() {
-  const footerInfo = await client.fetch(FOOTER_INFO, {}, options);
-  const footerNewSection = await client.fetch(FOOTER_NEW_SECTION, {}, options);
+  let footerInfo: FooterInfo[] = [];
+  let footerNewSection: FooterNewSection[] = [];
+
+  try {
+    const { data: fetchedFooterInfo } = await sanityFetch({
+      query: FOOTER_INFO,
+    });
+    const { data: FetchedFooterNewSection } = await sanityFetch({
+      query: FOOTER_NEW_SECTION,
+    });
+
+    footerInfo = fetchedFooterInfo;
+    footerNewSection = FetchedFooterNewSection;
+  } catch (error: unknown) {
+    console.error("Error fetching footer data:", error);
+  } finally {
+    if (!footerNewSection || footerNewSection.length === 0) {
+      footerInfo = [
+        {
+          description: "some fallback text",
+          emailAddress: "fallback@example.com",
+          phoneNumber: "+201234567890",
+          address: "Fallback Address",
+        },
+      ];
+      footerNewSection = [
+        {
+          _id: "fallback-section",
+          sectionTitle: "Fallback Section",
+          sectionList: [
+            {
+              _key: "fallback-item",
+              itemName: "Fallback Item",
+              url: "https://www.example.com",
+            },
+          ],
+        },
+      ];
+    }
+  }
 
   return (
     <footer className={classes.footer}>
       <div className={classes.footer__container}>
-        <div className={classes.footer__content}>
-          <div className={classes.footer__logo}>
+        <div className={classes["footer__container-content"]}>
+          <div className={classes["footer__container-content-logo"]}>
             <h4>E-commerce</h4>
           </div>
-          <div className={classes.footer__description}>
+          <div className={classes["footer__container-content-description"]}>
             <p>{footerInfo[0]?.description}</p>
           </div>
-          <div className={classes.footer__backlinks}>
+          <div className={classes["footer__container-content-backlinks"]}>
             <ul>
               <li>
                 <a
@@ -78,7 +131,7 @@ export default async function Footer() {
             </ul>
           </div>
         </div>
-        <div className={classes.footer__navigation}>
+        <div className={classes["footer__container-navigation"]}>
           <h4>Site Map</h4>
           <ul>
             <li>
@@ -95,7 +148,7 @@ export default async function Footer() {
             </li>
           </ul>
         </div>
-        <div className={classes.footer__contact}>
+        <div className={classes["footer__container-contact"]}>
           <h4>Contact Us</h4>
           <ul>
             <li>
@@ -135,7 +188,10 @@ export default async function Footer() {
         </div>
         {footerNewSection &&
           footerNewSection.map((section) => (
-            <div key={section._id} className={classes.footer_newSection}>
+            <div
+              key={section._id}
+              className={classes["footer__container-newSection"]}
+            >
               <h4>{section.sectionTitle}</h4>
               <ul>
                 {section.sectionList?.map((item) => (
