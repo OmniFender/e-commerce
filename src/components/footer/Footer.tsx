@@ -154,7 +154,7 @@ export default async function Footer() {
           ))}
       </div>
       <p className={classes.footer__copyright}>
-        &copy; {new Date().getFullYear()}, E-commerce. All rights reserved.
+        &copy; {new Date().getFullYear()} E-commerce. All rights reserved.
       </p>
       <ScrollTopBtn>
         <FaArrowUp />

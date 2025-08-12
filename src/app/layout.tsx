@@ -1,12 +1,7 @@
-import type { Metadata } from "next";
-import Footer from "@/components/footer/Footer";
-import { Roboto } from "next/font/google";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "E-Commerce Platform",
-  description: "ecommerce platform built with Next.js and sanity",
-};
+import { Roboto } from "next/font/google";
+
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -19,10 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={roboto.className}>
-      <body>
-        {children}
-        <Footer />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
