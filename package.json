@@ -3,20 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predev": "npm run typegen",
+    "prebuild": "npm run typegen",
+    "typegen": "sanity schema extract && sanity typegen generate"
   },
   "dependencies": {
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^4.1.0",
     "next": "15.4.2",
-    "next-sanity": "^10.0.1",
+    "next-sanity": "^10.0.10",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
     "sanity": "^4.1.0",
+    "sass": "^1.90.0",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {

@@ -1,0 +1,26 @@
+.footer__button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  color: var(--accent-color);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: 2px solid var(--accent-color);
+  transition: all 0.2s ease;
+  animation: slideIn 0.4s ease-out;
+}
+@keyframes slideIn {
+  0% {
+    transform: translate(100%, 100%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.footer__button:hover {
+  background-color: var(--accent-hover);
+  color: var(--primary-color);
+  cursor: pointer;
+  transform: translateY(-2px) scale(1.02);
+}

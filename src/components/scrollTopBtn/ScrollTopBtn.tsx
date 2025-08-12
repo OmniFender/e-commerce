@@ -1,16 +1,38 @@
 "use client";
-import { FaArrowUp } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import classes from "./scrollTopBtn.module.scss";
 
-export default function ScrollTopBtn({ className }: { className?: string }) {
-  function scrollToTop() {
+export default function ScrollTopBtn({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-  }
-  return (
-    <button onClick={scrollToTop} className={className}>
-      <FaArrowUp /> Back To Top
+  };
+
+  return isVisible ? (
+    <button onClick={scrollToTop} className={classes.footer__button}>
+      {children}
     </button>
-  );
+  ) : null;
 }
