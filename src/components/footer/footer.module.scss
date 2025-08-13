@@ -33,10 +33,10 @@
           font-size: var(--font-size-xl);
           color: var(--accent-color);
           transition: all 0.2s ease;
-        }
-        li:hover {
-          color: var(--text-color);
-          cursor: pointer;
+          &:hover {
+            color: var(--text-color);
+            cursor: pointer;
+          }
         }
       }
     }
@@ -60,11 +60,11 @@
           font-size: var(--font-size-sm);
           text-transform: capitalize;
           transition: all 0.2s ease;
-        }
-        li:hover {
-          color: var(--accent-color);
-          text-decoration: underline;
-          cursor: pointer;
+          &:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -87,11 +87,11 @@
           font-size: var(--font-size-lg);
           text-transform: capitalize;
           transition: all 0.2s ease;
-        }
-        li:hover {
-          color: var(--text-color);
-          text-decoration: underline;
-          cursor: pointer;
+          &:hover {
+            color: var(--text-color);
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -114,11 +114,11 @@
           font-size: var(--font-size-sm);
           text-transform: capitalize;
           transition: all 0.2s ease;
-        }
-        li:hover {
-          color: var(--accent-color);
-          text-decoration: underline;
-          cursor: pointer;
+          &:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
       }
     }

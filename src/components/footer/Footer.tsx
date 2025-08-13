@@ -1,26 +1,10 @@
-interface FooterInfo {
-  description?: string | null;
-  emailAddress?: string | null;
-  phoneNumber?: string | null;
-  address?: string | null;
-}
-interface FooterNewSectionItem {
-  _key: string | null;
-  itemName: string | null;
-  url?: string | null;
-}
-interface FooterNewSection {
-  _id: string | null;
-  sectionTitle: string | null;
-  sectionList?: FooterNewSectionItem[] | null;
-}
-
 import Link from "next/link";
 
 import ScrollTopBtn from "../scroll-top-btn/ScrollTopBtn";
 
 import { sanityFetch } from "@/sanity/lib/live";
 import { FOOTER_INFO, FOOTER_NEW_SECTION } from "@/sanity/lib/queries";
+import { FooterAdditionalSection } from "@/sanity/types";
 
 import { TiSocialFacebook } from "react-icons/ti";
 import {
@@ -36,23 +20,20 @@ import { RxInstagramLogo } from "react-icons/rx";
 import classes from "./footer.module.scss";
 
 export default async function Footer() {
-  let footerInfo: FooterInfo[] = [];
-  let footerNewSection: FooterNewSection[] = [];
+  let footerInfo = null;
+  let footerNewSection = null;
 
   try {
     const { data: fetchedFooterInfo } = await sanityFetch({
       query: FOOTER_INFO,
     });
-    const { data: FetchedFooterNewSection } = await sanityFetch({
-      query: FOOTER_NEW_SECTION,
-    });
-
-    footerInfo = fetchedFooterInfo;
-    footerNewSection = FetchedFooterNewSection;
-  } catch (error: unknown) {
-    console.error("Error fetching footer data:", error);
+    if (fetchedFooterInfo) {
+      footerInfo = fetchedFooterInfo;
+    }
+  } catch (error) {
+    console.error("Error fetching footer info data:", error);
   } finally {
-    if (!footerNewSection || footerNewSection.length === 0) {
+    if (!footerInfo) {
       footerInfo = [
         {
           description: "some fallback text",
@@ -61,6 +42,20 @@ export default async function Footer() {
           address: "Fallback Address",
         },
       ];
+    }
+  }
+
+  try {
+    const { data: FetchedFooterNewSection } = await sanityFetch({
+      query: FOOTER_NEW_SECTION,
+    });
+    if (FetchedFooterNewSection) {
+      footerNewSection = FetchedFooterNewSection;
+    }
+  } catch (error: unknown) {
+    console.error("Error fetching footer new section data:", error);
+  } finally {
+    if (!footerNewSection) {
       footerNewSection = [
         {
           _id: "fallback-section",
@@ -84,9 +79,11 @@ export default async function Footer() {
           <div className={classes["footer__container-content-logo"]}>
             <h4>E-commerce</h4>
           </div>
-          <div className={classes["footer__container-content-description"]}>
-            <p>{footerInfo[0]?.description}</p>
-          </div>
+          {footerInfo[0].description && (
+            <div className={classes["footer__container-content-description"]}>
+              <p>{footerInfo[0]?.description}</p>
+            </div>
+          )}
           <div className={classes["footer__container-content-backlinks"]}>
             <ul>
               <li>
@@ -151,43 +148,51 @@ export default async function Footer() {
         <div className={classes["footer__container-contact"]}>
           <h4>Contact Us</h4>
           <ul>
-            <li>
-              <a
-                href={`mailto:${footerInfo[0]?.emailAddress || "abdelrahmanemad2712@gmail.com"}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Email"
-              >
-                <FaEnvelope />
-              </a>
-            </li>
-            <li>
-              <a
-                href={`tel:+2${footerInfo[0]?.phoneNumber || "tel:+201065384257"}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Phone"
-              >
-                <FaPhone />
-              </a>
-            </li>
-            <li>
-              <a
-                href={
-                  footerInfo[0].address ||
-                  "https://www.google.com/maps/place/121+React+St,+Giza,+Egypt"
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Address"
-              >
-                <FaMapMarked />
-              </a>
-            </li>
+            {footerInfo[0].emailAddress && (
+              <li>
+                <a
+                  href={`mailto:${footerInfo[0]?.emailAddress || "abdelrahmanemad2712@gmail.com"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Email"
+                >
+                  <FaEnvelope />
+                </a>
+              </li>
+            )}
+
+            {footerInfo[0].phoneNumber && (
+              <li>
+                <a
+                  href={`tel:+${footerInfo[0]?.phoneNumber || "tel:+201065384257"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Phone"
+                >
+                  <FaPhone />
+                </a>
+              </li>
+            )}
+
+            {footerInfo[0].address && (
+              <li>
+                <a
+                  href={
+                    footerInfo[0].address ||
+                    "https://www.google.com/maps/place/121+React+St,+Giza,+Egypt"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Address"
+                >
+                  <FaMapMarked />
+                </a>
+              </li>
+            )}
           </ul>
         </div>
         {footerNewSection &&
-          footerNewSection.map((section) => (
+          footerNewSection.map((section: FooterAdditionalSection) => (
             <div
               key={section._id}
               className={classes["footer__container-newSection"]}

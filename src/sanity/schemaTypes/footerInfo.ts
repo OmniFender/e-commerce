@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity";
 
+import PhoneNumberInput from "./components/phonenumber-input/PhoneNumberInput";
+
 export const footerInfo = defineType({
   name: "footerInfo",
   title: "Footer Info",
@@ -41,7 +43,9 @@ export const footerInfo = defineType({
       description: "your region code followed by your bussiness phone number  ",
       type: "string",
       placeholder: "+201234567891",
-      
+      components: {
+        input: PhoneNumberInput,
+      },
     }),
   ],
 });
