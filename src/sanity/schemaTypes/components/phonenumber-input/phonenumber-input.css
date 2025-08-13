@@ -1,0 +1,16 @@
+.input {
+  width: 100% !important;
+  background-color: transparent !important;
+}
+
+.button {
+  background-color: transparent !important;
+}
+
+.dropdown {
+  background-color: transparent !important;
+}
+
+.dropdown .country:hover, .dropdown .highlight {
+  color: black !important;
+}
