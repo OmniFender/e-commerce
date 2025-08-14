@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 
+import { SanityLive } from "@/sanity/lib/live";
 import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
 
 import "./globals.css";
-import { SanityLive } from "@/sanity/lib/live";
 
 export const metadata: Metadata = {
   title: "E-Commerce Platform",
@@ -17,6 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <>
+      <Header />
       <main>{children}</main>
       <Footer />
       <SanityLive />
