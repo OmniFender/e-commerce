@@ -42,9 +42,15 @@
   display: none;
 }
 
+@media (max-width: 1024px) {
+  .menu {
+    right: var(--spacing-2xl);
+  }
+}
+
 @media (max-width: 970px) {
   .menu {
-    right: var(--spacing-xl);
+    right: var(--spacing-lg);
   }
 }
 

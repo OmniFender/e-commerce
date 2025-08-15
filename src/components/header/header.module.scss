@@ -53,9 +53,15 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .header {
+    padding: 20px var(--spacing-2xl);
+  }
+}
+
 @media (max-width: 970px) {
   .header {
-    padding: 20px var(--spacing-xl);
+    padding: 20px var(--spacing-lg);
     &__logo {
       width: 150px;
     }

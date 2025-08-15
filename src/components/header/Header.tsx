@@ -14,7 +14,7 @@ function Header() {
         <Link href="/">
           <Image
             src={logo}
-            alt="Hamelton Black Logo"
+            alt="Hamilton SVG Star Logo"
             className={classes["header__logo-image"]}
             priority
           />

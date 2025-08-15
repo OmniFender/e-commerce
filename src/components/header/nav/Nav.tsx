@@ -7,7 +7,7 @@ import classes from "./nav.module.scss";
 
 function Nav() {
   const { scrollYProgress } = useScroll();
-  const padding = useTransform(scrollYProgress, [0, 0.1], ["20px", "15px"]);
+  const padding = useTransform(scrollYProgress, [0, 0.1, 0.2], ["20px", "15px", "10px"]);
   return (
     <nav className={classes.nav}>
       <ul>
