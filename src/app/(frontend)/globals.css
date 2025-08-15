@@ -10,9 +10,12 @@
   --text-color-light: #6c757d;
   /* --text-color-light: #2c2c2c; */
   --bg-primary-color: #f8f9fa;
+  --white-color: #fff;
+  --black-color: #000;
 
   --border-radius: 32px;
   --border-radius-sm: 18px;
+  --border-radius-full: 50%;
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 0.75rem;
@@ -35,15 +38,33 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
 }
 
+main {
+  min-height: 100vh;
+}
+
 ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
 }
 
 li * {
   color: inherit;
   text-decoration: none;
+}
+
+.divider {
+  width: 80%;
+  margin: 5px auto;
+  border: 1px solid rgba(108, 117, 125, 0.1);
 }
