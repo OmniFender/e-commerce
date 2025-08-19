@@ -4,7 +4,6 @@ import ScrollTopBtn from "../scroll-top-btn/ScrollTopBtn";
 
 import { sanityFetch } from "@/sanity/lib/live";
 import { FOOTER_INFO, FOOTER_NEW_SECTION } from "@/sanity/lib/queries";
-import { FooterAdditionalSection } from "@/sanity/types";
 
 import { TiSocialFacebook } from "react-icons/ti";
 import {
@@ -164,7 +163,7 @@ export default async function Footer() {
             {footerInfo[0].phoneNumber && (
               <li>
                 <a
-                  href={`tel:+${footerInfo[0]?.phoneNumber || "tel:+201065384257"}`}
+                  href={`tel:+${footerInfo[0]?.phoneNumber || "201065384257"}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Phone"
@@ -192,7 +191,7 @@ export default async function Footer() {
           </ul>
         </div>
         {footerNewSection &&
-          footerNewSection.map((section: FooterAdditionalSection) => (
+          footerNewSection.map((section) => (
             <div
               key={section._id}
               className={classes["footer__container-newSection"]}
