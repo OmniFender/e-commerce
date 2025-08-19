@@ -26,36 +26,71 @@ export default async function FeaturedProducts() {
           _id: Math.random().toString(36).substring(2, 15),
           title: "Fallback Product 1",
           description: "This is a fallback product description.",
-          imageUrl: "/images/fallback-product.jpg",
+          productImage: {
+            caption: "Fallback Product Image",
+            asset: {
+              _id: "fallback-image-id",
+              url: "/images/fallback-product.jpg",
+            },
+          },
           price: 0,
+          tags: ["Sale", "New Arrival", "Popular"],
         },
         {
           _id: Math.random().toString(36).substring(2, 15),
           title: "Fallback Product 2",
           description: "This is a fallback product description.",
-          imageUrl: "/images/fallback-product.jpg",
+          productImage: {
+            caption: "Fallback Product Image",
+            asset: {
+              _id: "fallback-image-id-2",
+              url: "/images/fallback-product-2.jpg",
+            },
+          },
           price: 0,
+          tags: ["Sale", "New Arrival", "Popular"],
         },
         {
           _id: Math.random().toString(36).substring(2, 15),
           title: "Fallback Product 3",
           description: "This is a fallback product description.",
-          imageUrl: "/images/fallback-product.jpg",
+          productImage: {
+            caption: "Fallback Product Image",
+            asset: {
+              _id: "fallback-image-id-2",
+              url: "/images/fallback-product-2.jpg",
+            },
+          },
           price: 0,
+          tags: ["Sale"],
         },
         {
           _id: Math.random().toString(36).substring(2, 15),
           title: "Fallback Product 4",
           description: "This is a fallback product description.",
-          imageUrl: "/images/fallback-product.jpg",
+          productImage: {
+            caption: "Fallback Product Image",
+            asset: {
+              _id: "fallback-image-id-2",
+              url: "/images/fallback-product-2.jpg",
+            },
+          },
           price: 0,
+          tags: ["Sale"],
         },
         {
           _id: Math.random().toString(36).substring(2, 15),
           title: "Fallback Product 5",
           description: "This is a fallback product description.",
-          imageUrl: "/images/fallback-product.jpg",
+          productImage: {
+            caption: "Fallback Product Image",
+            asset: {
+              _id: "fallback-image-id-2",
+              url: "/images/fallback-product-2.jpg",
+            },
+          },
           price: 0,
+          tags: ["New"],
         },
       ];
     }
@@ -63,7 +98,9 @@ export default async function FeaturedProducts() {
   console.log(featuredProducts);
   return (
     <section className={classes["featured-products"]}>
-      <h2 className={classes["featured-products__header"]}>Featured Products</h2>
+      <h2 className={classes["featured-products__header"]}>
+        Featured Products
+      </h2>
       <div className={classes["featured-products__container"]}>
         {featuredProducts.map((product) => (
           <div
@@ -71,16 +108,22 @@ export default async function FeaturedProducts() {
             className={classes["featured-products__container-item"]}
           >
             <Image
-              src={urlFor(product.productImage)
-                .width(300)
-                .height(400)
-                .quality(80)
-                .auto("format")
-                .url()}
-              alt={product?.productImage?.caption}
+              src={
+                product.productImage
+                  ? urlFor(product.productImage)
+                      .width(200)
+                      .height(300)
+                      .quality(100)
+                      .auto("format")
+                      .url()
+                  : product.productImage?.asset.url
+              }
+              alt={
+                product?.productImage?.caption || product.productImage?.caption
+              }
               className={classes["featured-products__container-item-image"]}
-              width={250}
-              height={350}
+              width={120}
+              height={220}
             />
             <div className={classes["featured-products__container-item-info"]}>
               <h3>{product.title}</h3>
@@ -106,7 +149,7 @@ export default async function FeaturedProducts() {
             <button
               className={classes["featured-products__container-item-cta"]}
             >
-              Add to Cart
+              + Quick Add
             </button>
           </div>
         ))}
