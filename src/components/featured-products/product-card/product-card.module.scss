@@ -1,0 +1,181 @@
+.featured-products__container-item {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  position: relative;
+  transition: all 0.3s ease;
+  -webkit-user-drag: none;
+
+  &-image {
+    -webkit-user-drag: none;
+  }
+
+  &-info {
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    padding: var(--spacing-sm) var(--spacing-xs);
+    width: 100%;
+    transition: opacity 0.3s ease;
+
+    h3 {
+      font-size: var(--font-size-sm);
+      font-weight: bold;
+    }
+    &-tags {
+      display: flex;
+      gap: var(--spacing-xs);
+      flex-wrap: wrap;
+      position: absolute;
+      top: 2%;
+      left: 5%;
+      span {
+        width: fit-content;
+        padding: var(--spacing-2xs) var(--spacing-xs);
+        display: flex;
+        gap: var(--spacing-xs);
+        border: 1px solid var(--accent-color);
+        border-radius: var(--border-radius-sm);
+        font-size: var(--font-size-xs);
+        background-color: var(--accent-color);
+        color: white;
+      }
+    }
+
+    &-price {
+      width: fit-content;
+      padding: var(--spacing-2xs);
+      display: flex;
+      gap: var(--spacing-xs);
+      font-size: var(--font-size-sm);
+      color: var(--accent-color);
+    }
+  }
+  &:hover &-info {
+    opacity: 1;
+  }
+
+  &-cta {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--bg-primary);
+    color: var(--accent-color);
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--accent-color);
+    position: absolute;
+    bottom: 20%;
+    right: 3%;
+    transition: all 0.3s ease;
+    opacity: 0;
+    &:hover {
+      color: var(--primary-color);
+      background-color: var(--accent-color);
+    }
+  }
+  &:hover &-cta {
+    opacity: 1;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  border: none;
+  animation: fade-slide-up 0.3s ease;
+  @keyframes fade-slide-up {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 10%);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+  &::backdrop {
+    background-color: rgba($color: #000000, $alpha: 0.65);
+  }
+  &--close {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    font-size: var(--font-size-2xl);
+  }
+  &-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+
+    &-image {
+      width: 100px;
+      max-width: 400px;
+      height: auto;
+    }
+    &__description {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+      h3 {
+        font-size: var(--font-size-md);
+        font-weight: bold;
+      }
+      &-price {
+        font-size: var(--font-size-lg);
+        color: var(--accent-color);
+      }
+    }
+  }
+  &-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    &--primary {
+      background-color: var(--accent-color);
+      color: white;
+      border: 1px solid var(--accent-color);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--border-radius-sm);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      &::selection {
+        border: none;
+      }
+      &:hover {
+        background-color: var(--accent-color), 5%;
+        color: var(--accent-color);
+        border: 1px solid var(--accent-color);
+      }
+    }
+    &--secondary {
+      background-color: transparent;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--border-radius-sm);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: var(--accent-color);
+        color: white;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  
+}
