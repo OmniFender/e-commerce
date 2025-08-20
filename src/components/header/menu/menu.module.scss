@@ -21,8 +21,8 @@
   }
   &__button {
     border: 0;
-    background-color: rgba($color: #6c757d, $alpha: 0.1);
-    color: var(--text-color);
+    background-color: rgba($color: #6c757d, $alpha: 0.0);
+    color: var(--white-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,7 +33,7 @@
     transition: background-color 0.3s;
     cursor: pointer;
     &:hover {
-      background-color: rgba($color: #6c757d, $alpha: 0.2);
+      background-color: rgba($color: #6c757d, $alpha: 0.5);
     }
   }
 }
