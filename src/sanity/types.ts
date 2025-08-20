@@ -13,6 +13,59 @@
  */
 
 // Source: schema.json
+export type SiteSettings = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  heroHeadingText?: string;
+  heroHeadingDescription?: string;
+};
+
+export type Products = {
+  _id: string;
+  _type: "products";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  description?: string;
+  price?: number;
+  tags?: Array<string>;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "categories";
+  };
+  featured?: boolean;
+  bestSeller?: boolean;
+  productImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+  };
+};
+
+export type Categories = {
+  _id: string;
+  _type: "categories";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  categories?: string;
+};
+
 export type FooterAdditionalSection = {
   _id: string;
   _type: "footerAdditionalSection";
@@ -159,7 +212,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = FooterAdditionalSection | FooterInfo | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = SiteSettings | Products | Categories | FooterAdditionalSection | FooterInfo | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: FOOTER_INFO
@@ -185,6 +238,58 @@ export type FOOTER_NEW_SECTIONResult = Array<{
   }> | null;
   sectionTitle: string | null;
 }>;
+// Variable: FEATURED_PRODUCTS_CARDS
+// Query: *[_type == "products" && featured == true]{  _id,  title,  tags,  price,  productImage{    caption,    asset->{      _id,      url    }  }}
+export type FEATURED_PRODUCTS_CARDSResult = Array<{
+  _id: string;
+  title: string | null;
+  tags: Array<string> | null;
+  price: number | null;
+  productImage: {
+    caption: string | null;
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+  } | null;
+}>;
+// Variable: PRODUCTS
+// Query: *[_type == "products"]{    _id,    title,    description,    price,    image{      caption,      asset->{        _id,        url      }    }  }
+export type PRODUCTSResult = Array<{
+  _id: string;
+  title: string | null;
+  description: string | null;
+  price: number | null;
+  image: null;
+}>;
+// Variable: HERO_SECTION_SETTINGS
+// Query: *[_type == "siteSettings"]{  _id,  heroHeadingDescription,  heroHeadingText,}
+export type HERO_SECTION_SETTINGSResult = Array<{
+  _id: string;
+  heroHeadingDescription: string | null;
+  heroHeadingText: string | null;
+}>;
+// Variable: BESTSELLER_PRODUCTS
+// Query: *[_type == "products" && bestSeller == true] {  _id,  title,  price,  productImage {    asset->{      _id,      url,      metadata {        dimensions {          width,          height        },        lqip      }    },    caption  }}
+export type BESTSELLER_PRODUCTSResult = Array<{
+  _id: string;
+  title: string | null;
+  price: number | null;
+  productImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+        lqip: string | null;
+      } | null;
+    } | null;
+    caption: string | null;
+  } | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -192,5 +297,9 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n*[_type == \"footerInfo\"]{\n  _id,\n  _type,\n  address,\n    description,\n    emailAddress,\n    footer,\n    phoneNumber,\n}": FOOTER_INFOResult;
     "\n*[_type == \"footerAdditionalSection\"]{\n  _id,\n  _createdAt,\n    sectionList[]{\n      itemName,\n      _key,\n      url,\n    },\n    sectionTitle\n} | order(_createdAt asc)": FOOTER_NEW_SECTIONResult;
+    "\n*[_type == \"products\" && featured == true]{\n  _id,\n  title,\n  tags,\n  price,\n  productImage{\n    caption,\n    asset->{\n      _id,\n      url\n    }\n  }\n}\n  ": FEATURED_PRODUCTS_CARDSResult;
+    "\n  *[_type == \"products\"]{\n    _id,\n    title,\n    description,\n    price,\n    image{\n      caption,\n      asset->{\n        _id,\n        url\n      }\n    }\n  }\n": PRODUCTSResult;
+    "\n*[_type == \"siteSettings\"]{\n  _id,\n  heroHeadingDescription,\n  heroHeadingText,\n}": HERO_SECTION_SETTINGSResult;
+    "\n*[_type == \"products\" && bestSeller == true] {\n  _id,\n  title,\n  price,\n  productImage {\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption\n  }\n}": BESTSELLER_PRODUCTSResult;
   }
 }
