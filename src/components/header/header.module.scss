@@ -1,7 +1,5 @@
 .header {
-  background-color: transparent;
-  // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--white-color);
   backdrop-filter: blur(10px);
   padding: 25px var(--spacing-3xl);
   display: flex;
@@ -26,7 +24,6 @@
     justify-content: space-between;
     &-link {
       position: relative;
-      background-color: rgba($color: #fff, $alpha: 0);
       width: 35px;
       height: 35px;
       border-radius: var(--border-radius-full);

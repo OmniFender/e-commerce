@@ -21,7 +21,6 @@
   }
   &__button {
     border: 0;
-    background-color: rgba($color: #6c757d, $alpha: 0.0);
     color: var(--white-color);
     display: flex;
     align-items: center;
@@ -32,6 +31,7 @@
     border-radius: var(--border-radius-full);
     transition: background-color 0.3s;
     cursor: pointer;
+    background-color: transparent;
     &:hover {
       background-color: rgba($color: #6c757d, $alpha: 0.5);
     }

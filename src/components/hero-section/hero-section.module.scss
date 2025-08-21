@@ -1,7 +1,198 @@
 .hero-section {
   width: 100%;
-  height: 100vh;
-  background: url(/backgrounds/Untitled\ design.png);
+  min-height: 100vh;
+  background: url(/backgrounds/background.png);
   object-fit: cover;
+  background-size: cover;
   background-position: center;
+  padding: 200px var(--spacing-3xl) 50px;
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  grid-template-rows: 100px 200px 1fr;
+  grid-template-areas: "heading heading" "description slider" "controls slider";
+  &__heading-text {
+    grid-area: heading;
+    font-size: 80px;
+    color: var(--white-color);
+    letter-spacing: 2px;
+  }
+  &__details {
+    grid-area: description;
+  }
+  &__heading-description {
+    font-size: 25px;
+    line-height: 1.5;
+    color: rgba($color: #fff, $alpha: 0.75);
+    margin-left: 5px;
+    margin-top: 30px;
+    text-wrap: pretty;
+  }
+  &__controls {
+    margin-top: 20px;
+    a {
+      display: inline-block;
+      border: 1px solid var(--white-color);
+      background-color: var(--white-color);
+      padding: 20px 35px;
+      border-radius: var(--border-radius);
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition:
+        background-color 0.3s,
+        color 0.3s,
+        transform 0.3s;
+      transform: scale(1);
+      &:hover {
+        background-color: transparent;
+        color: var(--white-color);
+        transform: scale(1.1);
+      }
+    }
+  }
+  &__products {
+    grid-area: slider;
+    height: 550px;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 50px 0;
+    position: relative;
+    &-bestseller {
+      color: var(--white-color);
+      font-size: 18px;
+      font-weight: 500;
+    }
+    &:hover .hero-section__products-slider {
+      animation-play-state: paused;
+    }
+    &-slider {
+      display: inline-flex;
+      animation: 10s infinite-slide infinite linear;
+      &-cards {
+        margin: 0 10px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        min-width: 400px;
+        height: 500px;
+        position: relative;
+        border-radius: var(--border-radius);
+        &-image {
+          max-width: 100%;
+          height: auto;
+          object-fit: contain;
+          border-radius: var(--border-radius);
+        }
+        &-details {
+          width: 100%;
+          padding: 10px;
+          color: var(--white-color);
+          p {
+            color: rgba($color: #fff, $alpha: 0.75);
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes infinite-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero-section {
+    height: unset;
+    grid-template-columns: 1fr;
+    grid-template-rows: 150px 200px 1fr;
+    grid-template-areas: "heading heading" "description description" "slider slider";
+    padding: 150px var(--spacing-3xl);
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-section {
+    padding: 150px var(--spacing-2xl);
+  }
+}
+
+@media (max-width: 970px) {
+  .hero-section {
+    padding: 150px var(--spacing-lg);
+  }
+}
+
+@media (max-width: 880px) {
+  .hero-section {
+    grid-template-rows: 100px 200px 1fr;
+    padding: 150px var(--spacing-sm) 80px;
+    &__heading-text {
+      font-size: 50px;
+    }
+    &__heading-description {
+      font-size: 25px;
+    }
+    &__products {
+      height: 450px;
+      &-bestseller {
+        font-size: 18px;
+      }
+      &-slider {
+        &-cards {
+          min-width: 300px;
+          height: 400px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 870px) {
+  .hero-section {
+    padding: 120px var(--spacing-sm) 80px;
+  }
+}
+
+@media (max-width: 850px) {
+  .hero-section {
+    grid-template-rows: 100px 250px 1fr;
+    padding: 120px var(--spacing-xl) 80px;
+    &__heading-text {
+      font-size: 40px;
+    }
+    &__heading-description {
+      font-size: 20px;
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .hero-section {
+    grid-template-rows: 100px 250px 1fr;
+    padding: 120px var(--spacing-xl) 80px;
+    &__heading-text {
+      font-size: 35px;
+    }
+    &__heading-description {
+      font-size: 18px;
+    }
+    &__products {
+      height: 350px;
+      &-bestseller {
+        font-size: 18px;
+      }
+      &-slider {
+        &-cards {
+          min-width: 200px;
+          height: 300px;
+        }
+      }
+    }
+  }
 }

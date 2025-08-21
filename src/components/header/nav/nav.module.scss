@@ -3,16 +3,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid rgba($color: #fff, $alpha: 1);
+    border: 1px solid var(--white-color);
     border-radius: var(--border-radius);
-    background-color: transparent;
-    color: white;
+    color: var(--white-color);
     li {
       width: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: transparent;
       transition: all 0.3s;
       &:hover {
         background-color: rgba($color: #6c757d, $alpha: 0.5);
@@ -45,8 +43,7 @@
           transform: translateY(-50%);
           width: 1px;
           height: 25px;
-          // background-color: rgba($color: #6c757d, $alpha: 0.3);
-          background-color: white;
+          background-color: var(--white-color);
           transition: all 0.3s;
           opacity: 1;
         }
@@ -58,8 +55,7 @@
           transform: translateY(-50%);
           width: 1px;
           height: 25px;
-          // background-color: rgba($color: #6c757d, $alpha: 0.3);
-          background-color: white;
+          background-color: var(--white-color);
           transition: all 0.3s;
           opacity: 1;
         }
