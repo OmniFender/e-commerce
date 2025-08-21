@@ -1,11 +1,14 @@
 "use client";
 
+import ProductCard from "../product-card/ProductCard";
+
 import { useState, useRef, useEffect } from "react";
 import { motion } from "motion/react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 import { FEATURED_PRODUCTS_CARDSResult } from "@/sanity/types";
+
 import classes from "../featured-products.module.scss";
-import ProductCard from "../product-card/ProductCard";
 
 export default function Slider({
   featuredProducts,
@@ -22,48 +25,82 @@ export default function Slider({
       if (width < 640) {
         setItemsPerView(1);
       } else if (width < 1024) {
+        setItemsPerView(2);
+      } else if (width < 1440) {
         setItemsPerView(3);
       } else {
         setItemsPerView(4);
       }
     }
-
     updateItemsPerView();
-    window.addEventListener("resize", updateItemsPerView);
-    return () => window.removeEventListener("resize", updateItemsPerView);
+    const resizeObserver = new ResizeObserver(updateItemsPerView);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+    return () => {
+      resizeObserver.disconnect();
+    };
   }, []);
 
-  const cardWidth = containerRef.current
-    ? containerRef.current.offsetWidth / itemsPerView
-    : 0;
-
+  const containerWidth = containerRef.current?.offsetWidth;
+  const cardWidth =
+    containerWidth && itemsPerView ? containerWidth / itemsPerView : 0;
   const maxIndex = Math.max(0, featuredProducts.length - itemsPerView);
 
+  useEffect(() => {
+    setActiveIndex((prev) => Math.min(prev, maxIndex));
+  }, [itemsPerView, featuredProducts.length, maxIndex]);
+
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} role="region" aria-label="Featured Products slider">
       <motion.div
         className={classes["featured-products__container"]}
+        style={{ display: "flex" }}
         animate={{ x: -activeIndex * cardWidth }}
         transition={{ type: "spring", stiffness: 200, damping: 30 }}
-        drag="x"
-        dragConstraints={{
-          left: -(cardWidth * maxIndex),
-          right: 0,
-        }}
-        onDragEnd={(event, info) => {
-          const offset = info.offset.x;
-          if (Math.abs(offset) > 50 && cardWidth > 0) {
-            const direction = offset < 0 ? 1 : -1;
-            setActiveIndex((active) =>
-              Math.max(0, Math.min(active + direction, maxIndex))
-            );
-          }
-        }}
+        layout
       >
-        {featuredProducts.map((product) => (
-          <ProductCard key={product._id} product={product} />
+        {featuredProducts.map((product, index) => (
+          <motion.div
+            key={product._id}
+            layout
+            style={{
+              minWidth: cardWidth || undefined,
+              maxWidth: cardWidth || undefined,
+            }}
+            animate={{
+              opacity:
+                index >= activeIndex && index < activeIndex + itemsPerView
+                  ? 1
+                  : 0.5,
+            }}
+          >
+            <ProductCard product={product} />
+          </motion.div>
         ))}
       </motion.div>
+      <div className={classes["featured-products__navigation"]}>
+        <button
+          className={classes["featured-products__navigation-prev"]}
+          onClick={() => setActiveIndex((active) => Math.max(0, active - 1))}
+          disabled={activeIndex === 0}
+          aria-label="Previous Slide"
+        >
+          <FaArrowLeft />
+        </button>
+        <button
+          className={classes["featured-products__navigation-next"]}
+          onClick={() =>
+            setActiveIndex((active) => Math.min(maxIndex, active + 1))
+          }
+          disabled={
+            activeIndex >= maxIndex || featuredProducts.length <= itemsPerView
+          }
+          aria-label="Next Slide"
+        >
+          <FaArrowRight />
+        </button>
+      </div>
     </div>
   );
 }

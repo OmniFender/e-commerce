@@ -7,24 +7,30 @@
   overflow: hidden;
   position: relative;
 
-  &__header {
-    text-transform: capitalize;
+  &__header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h2 {
+      text-transform: capitalize;
+      letter-spacing: 1px;
+    }
+    p {
+      letter-spacing: 1px;
+      font-style: italic;
+    }
   }
 
   &__container {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(5, minmax(280px, 1fr));
+    display: flex;
     position: relative;
     margin: auto;
   }
 
   &__link {
-    text-align: center;
-    position: absolute;
-    top: 5%;
-    right: 5%;
     font-size: var(--spacing-md);
+    position: relative;
     transition: all 0.3s ease;
     &::before {
       content: "";
@@ -45,15 +51,63 @@
       }
     }
   }
+  &__navigation {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  &__navigation-prev,
+  &__navigation-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-color);
+    border: none;
+    color: white;
+    border-radius: var(--border-radius-full);
+    padding: var(--spacing-xs) var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    cursor: pointer;
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    &:hover:not(:disabled) {
+      background-color: var(--accent-hover);
+      color: white;
+    }
+  }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 600px) {
   .featured-products {
+    &__header-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-xs);
+    }
     &__header {
-      font-size: var(--spacing-md);
+      font-size: var(--spacing-lg);
     }
     &__link {
-      font-size: var(--spacing-sm);
+      font-size: var(--spacing-md);
+    }
+    &__navigation {
+      button {
+        width: 30px;
+        height: 30px;
+        font-size: var(--font-size-xs);
+      }
     }
   }
 }

@@ -200,22 +200,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes =
-  | Products
-  | Categories
-  | FooterAdditionalSection
-  | FooterInfo
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | SanityImageHotspot
-  | SanityImageCrop
-  | SanityFileAsset
-  | SanityImageAsset
-  | SanityImageMetadata
-  | Geopoint
-  | Slug
-  | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Products | Categories | FooterAdditionalSection | FooterInfo | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: FOOTER_INFO
@@ -270,9 +255,9 @@ export type PRODUCTSResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n*[_type == "footerInfo"]{\n  _id,\n  _type,\n  address,\n    description,\n    emailAddress,\n    footer,\n    phoneNumber,\n}': FOOTER_INFOResult;
-    '\n*[_type == "footerAdditionalSection"]{\n  _id,\n  _createdAt,\n    sectionList[]{\n      itemName,\n      _key,\n      url,\n    },\n    sectionTitle\n} | order(_createdAt asc)': FOOTER_NEW_SECTIONResult;
-    '\n*[_type == "products" && featured == true]{\n  _id,\n  title,\n  tags,\n  price,\n  productImage{\n    caption,\n    asset->{\n      _id,\n      url\n    }\n  }\n}\n  ': FEATURED_PRODUCTS_CARDSResult;
-    '\n  *[_type == "products"]{\n    _id,\n    title,\n    description,\n    price,\n    image{\n      caption,\n      asset->{\n        _id,\n        url\n      }\n    }\n  }\n': PRODUCTSResult;
+    "\n*[_type == \"footerInfo\"]{\n  _id,\n  _type,\n  address,\n    description,\n    emailAddress,\n    footer,\n    phoneNumber,\n}": FOOTER_INFOResult;
+    "\n*[_type == \"footerAdditionalSection\"]{\n  _id,\n  _createdAt,\n    sectionList[]{\n      itemName,\n      _key,\n      url,\n    },\n    sectionTitle\n} | order(_createdAt asc)": FOOTER_NEW_SECTIONResult;
+    "\n*[_type == \"products\" && featured == true]{\n  _id,\n  title,\n  tags,\n  price,\n  productImage{\n    caption,\n    asset->{\n      _id,\n      url\n    }\n  }\n}\n  ": FEATURED_PRODUCTS_CARDSResult;
+    "\n  *[_type == \"products\"]{\n    _id,\n    title,\n    description,\n    price,\n    image{\n      caption,\n      asset->{\n        _id,\n        url\n      }\n    }\n  }\n": PRODUCTSResult;
   }
 }

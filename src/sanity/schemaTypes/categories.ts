@@ -1,5 +1,4 @@
 import { defineField, defineType } from "sanity";
-//categories that can be referenced in products section for filtering them
 
 export const categories = defineType({
   name: "categories",
@@ -7,10 +6,11 @@ export const categories = defineType({
   description: "Manage categories for the website",
   type: "document",
   fields: [
-    {
+    defineField({
       name: "categories",
+      title: "Categories",
       type: "string",
       description: "add a category for the website",
-    },
+    }),
   ],
 });

@@ -1,12 +1,14 @@
+import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 import Modal from "@/helper_components/modal/Modal";
+import { formattedPrice } from "@/utils/utils";
 
 import { FEATURED_PRODUCTS_CARDSResult } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
 
 import classes from "./product-card.module.scss";
-import { useState } from "react";
-import Link from "next/link";
 
 export default function ProductCard({
   product,
@@ -14,53 +16,59 @@ export default function ProductCard({
   product: FEATURED_PRODUCTS_CARDSResult[number];
 }) {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
-      <Link
-        href={`/`}
-        key={product._id}
-        className={`${classes["featured-products__container-item"]} `}
+      <div
+        className={`${classes["featured-products__container-item"]}`}
+        aria-label="Featured Product"
       >
-        <Image
-          src={
-            product.productImage
-              ? urlFor(product.productImage)
-                  .width(300)
-                  .height(400)
-                  .quality(100)
-                  .auto("format")
-                  .url()
-              : "/images/fallback-product.jpg"
-          }
-          alt={product?.productImage?.caption || "Product Image"}
-          className={classes["featured-products__container-item-image"]}
-          width={200}
-          height={220}
-        />
-        <div className={classes["featured-products__container-item-info"]}>
-          <h3>{product.title}</h3>
-          {product.tags && (
-            <div
-              className={classes["featured-products__container-item-info-tags"]}
+        <Link href={`/shop/${product._id}`} key={product._id}>
+          <Image
+            src={
+              product.productImage
+                ? urlFor(product.productImage)
+                    .width(300)
+                    .height(450)
+                    .quality(100)
+                    .auto("format")
+                    .url()
+                : "/images/fallback-product.jpg"
+            }
+            alt={product?.productImage?.caption || "Product Image"}
+            className={classes["featured-products__container-item-image"]}
+            width={200}
+            height={250}
+          />
+          <div className={classes["featured-products__container-item-info"]}>
+            <h3>{product.title}</h3>
+            {product.tags && (
+              <div
+                className={
+                  classes["featured-products__container-item-info-tags"]
+                }
+              >
+                {product.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+            )}
+            <span
+              className={
+                classes["featured-products__container-item-info-price"]
+              }
             >
-              {product.tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
-            </div>
-          )}
-          <span
-            className={classes["featured-products__container-item-info-price"]}
-          >
-            ${product.price?.toFixed(2)}
-          </span>
-        </div>
+              {formattedPrice(product.price ?? 0)}
+            </span>
+          </div>
+        </Link>
         <button
           className={classes["featured-products__container-item-cta"]}
           onClick={() => setIsOpen(true)}
         >
-          + Quick Add
+          + Quick add
         </button>
-      </Link>
+      </div>
       <Modal
         className={classes["modal"]}
         openModal={isOpen}
@@ -90,9 +98,9 @@ export default function ProductCard({
             height={440}
           />
           <div className={classes["modal-info__description"]}>
-            <h3>{product.title}</h3>
+            <h2>{product.title}</h2>
             <span className={classes["modal-info__description-price"]}>
-              ${product.price?.toFixed(2)}
+              {formattedPrice(product.price ?? 0)}
             </span>
           </div>
         </div>

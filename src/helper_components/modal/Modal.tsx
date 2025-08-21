@@ -1,8 +1,9 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-export default function CheckoutModal({
+export default function Modal({
   openModal,
   children,
   onCloseModal,
@@ -21,16 +22,31 @@ export default function CheckoutModal({
   }, []);
 
   useEffect(() => {
-    if (openModal) {
-      modal.current?.showModal();
-    } else {
-      modal.current?.close();
+    if (!modal.current) return;
+    if (openModal && !modal.current.open) {
+      modal.current.showModal();
+    } else if (!openModal && modal.current.open) {
+      modal.current.close();
     }
   }, [openModal]);
 
+  useEffect(() => {
+    const dialog = modal.current;
+    if (!dialog) return;
+    const handleClose = () => onCloseModal();
+    dialog.addEventListener("close", handleClose);
+    return () => dialog.removeEventListener("close", handleClose);
+  }, [onCloseModal]);
+
   if (!mounted) return null;
   return createPortal(
-    <dialog className={className} ref={modal} onClose={onCloseModal}>
+    <dialog
+      className={className}
+      ref={modal}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="product-info"
+    >
       {openModal ? children : null}
     </dialog>,
     document.getElementById("modal") || document.body
