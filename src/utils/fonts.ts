@@ -1,18 +1,16 @@
-import { Roboto, Rubik, Bebas_Neue } from "next/font/google";
+import { Nunito, Roboto, Rubik } from "next/font/google";
 
 export const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
 
-export const rubik = Rubik({
+export const nunito = Nunito({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["200", "300", "400", "500", "600", "700", "800", "900", "1000"],
 });
 
-// try it with special or catchy phrases if you want or delete it 
-
-// export const bebasNeue = Bebas_Neue({
-//   subsets: ["latin"],
-//   weight: ["400"],
-// });
+export const rubik = Rubik({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});

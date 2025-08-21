@@ -17,7 +17,7 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id",
-        url: "/images/fallback-product.jpg",
+        url: null,
       },
     },
     price: 123,
@@ -30,7 +30,7 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id-2",
-        url: "/images/fallback-product-2.jpg",
+        url: null,
       },
     },
     price: 0,
@@ -43,7 +43,7 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id-3",
-        url: "/images/fallback-product-3.jpg",
+        url: null,
       },
     },
     price: 0,
@@ -56,7 +56,7 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id-4",
-        url: "/images/fallback-product-4.jpg",
+        url: null,
       },
     },
     price: 0,
@@ -69,7 +69,7 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id-5",
-        url: "/images/fallback-product-5.jpg",
+        url: null,
       },
     },
     price: 0,
@@ -94,7 +94,10 @@ export default async function FeaturedProducts() {
     }
   }
   return (
-    <section className={classes["featured-products"]} aria-label="Featured Products">
+    <section
+      className={classes["featured-products"]}
+      aria-label="Featured Products"
+    >
       <div className={classes["featured-products__header-container"]}>
         <header>
           <h2

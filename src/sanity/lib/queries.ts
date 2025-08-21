@@ -33,7 +33,12 @@ export const FEATURED_PRODUCTS_CARDS = defineQuery(`
     caption,
     asset->{
       _id,
-      url
+      url,
+      metadata {
+      lqip,
+      blurhash,
+      exif
+    }
     }
   }
 }
@@ -49,8 +54,41 @@ export const PRODUCTS = defineQuery(`
       caption,
       asset->{
         _id,
-        url
+        url,
+        metadata {
+      lqip,
+      blurhash,
+      exif
+    }
       }
     }
   }
 `);
+
+export const HERO_SECTION_SETTINGS = defineQuery(`
+*[_type == "siteSettings"]{
+  _id,
+  heroHeadingDescription,
+  heroHeadingText,
+}`);
+
+export const BESTSELLER_PRODUCTS = defineQuery(`
+*[_type == "products" && bestSeller == true] {
+  _id,
+  title,
+  price,
+  productImage {
+    asset->{
+      _id,
+      url,
+      metadata {
+        dimensions {
+          width,
+          height
+        },
+        lqip
+      }
+    },
+    caption
+  }
+}`);

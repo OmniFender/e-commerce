@@ -21,8 +21,7 @@
   }
   &__button {
     border: 0;
-    background-color: rgba($color: #6c757d, $alpha: 0.1);
-    color: var(--text-color);
+    color: var(--white-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,8 +31,9 @@
     border-radius: var(--border-radius-full);
     transition: background-color 0.3s;
     cursor: pointer;
+    background-color: transparent;
     &:hover {
-      background-color: rgba($color: #6c757d, $alpha: 0.2);
+      background-color: rgba($color: #6c757d, $alpha: 0.5);
     }
   }
 }

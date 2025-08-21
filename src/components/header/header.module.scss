@@ -1,10 +1,12 @@
 .header {
-  background-color: var(--bg-primary-color);
+  border-bottom: 1px solid var(--white-color);
+  backdrop-filter: blur(10px);
   padding: 25px var(--spacing-3xl);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 5;
   &__logo {
@@ -22,7 +24,6 @@
     justify-content: space-between;
     &-link {
       position: relative;
-      background-color: rgba($color: #6c757d, $alpha: 0.1);
       width: 35px;
       height: 35px;
       border-radius: var(--border-radius-full);
@@ -31,9 +32,9 @@
       justify-content: center;
       font-size: var(--font-size-md);
       transition: background-color 0.3s;
-      color: var(--text-color);
+      color: var(--white-color);
       &:hover {
-        background-color: rgba($color: #6c757d, $alpha: 0.2);
+        background-color: rgba($color: #6c757d, $alpha: 0.5);
       }
     }
   }

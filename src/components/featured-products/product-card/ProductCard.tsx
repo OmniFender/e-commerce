@@ -24,22 +24,22 @@ export default function ProductCard({
         aria-label="Featured Product"
       >
         <Link href={`/shop/${product._id}`} key={product._id}>
-          <Image
-            src={
-              product.productImage
-                ? urlFor(product.productImage)
-                    .width(300)
-                    .height(450)
-                    .quality(100)
-                    .auto("format")
-                    .url()
-                : "/images/fallback-product.jpg"
-            }
-            alt={product?.productImage?.caption || "Product Image"}
-            className={classes["featured-products__container-item-image"]}
-            width={200}
-            height={250}
-          />
+          {product.productImage ? (
+            <Image
+              src={urlFor(product.productImage)
+                .width(300)
+                .height(450)
+                .quality(100)
+                .auto("format")
+                .url()}
+              alt={product?.productImage?.caption || "Product Image"}
+              className={classes["featured-products__container-item-image"]}
+              width={200}
+              height={250}
+            />
+          ) : (
+            <div className={classes["image-placeholder"]}>No image</div>
+          )}
           <div className={classes["featured-products__container-item-info"]}>
             <h3>{product.title}</h3>
             {product.tags && (
@@ -81,22 +81,22 @@ export default function ProductCard({
           &#215;
         </span>
         <div className={classes["modal-info"]}>
-          <Image
-            src={
-              product.productImage
-                ? urlFor(product.productImage)
-                    .width(600)
-                    .height(800)
-                    .quality(100)
-                    .auto("format")
-                    .url()
-                : "/images/fallback-product.jpg"
-            }
-            alt={product?.productImage?.caption || "Product Image"}
-            className={classes["modal-info-image"]}
-            width={400}
-            height={440}
-          />
+          {product.productImage ? (
+            <Image
+              src={urlFor(product.productImage)
+                .width(600)
+                .height(800)
+                .quality(100)
+                .auto("format")
+                .url()}
+              alt={product?.productImage?.caption || "Product Image"}
+              className={classes["modal-info-image"]}
+              width={400}
+              height={440}
+            />
+          ) : (
+            <div className={classes["image-placeholder"]}>No image</div>
+          )}
           <div className={classes["modal-info__description"]}>
             <h2>{product.title}</h2>
             <span className={classes["modal-info__description-price"]}>

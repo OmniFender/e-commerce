@@ -51,6 +51,13 @@ export const products = defineType({
       initialValue: false,
     }),
     defineField({
+      name: "bestSeller",
+      title: "Best Seller",
+      type: "boolean",
+      description: "Is this product a best seller?",
+      initialValue: false,
+    }),
+    defineField({
       name: "productImage",
       title: "Product image",
       description: "An image of the product",
@@ -58,6 +65,7 @@ export const products = defineType({
       options: {
         hotspot: true,
         accept: "image/*",
+        metadata: ["lqip", "blurhash", "exif"],
       },
       fields: [
         defineField({
