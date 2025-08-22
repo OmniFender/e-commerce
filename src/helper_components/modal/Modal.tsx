@@ -28,7 +28,21 @@ export default function Modal({
     } else if (!openModal && modal.current.open) {
       modal.current.close();
     }
-  }, [openModal]);
+
+    function handleClickOutside(event: MouseEvent) {
+      if (!modal.current) return;
+      if (!modal.current.open) return;
+      if (event.target == modal.current) {
+        onCloseModal();
+      }
+    }
+    if (openModal) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openModal, onCloseModal]);
 
   useEffect(() => {
     const dialog = modal.current;

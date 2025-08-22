@@ -17,6 +17,13 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id",
+        metadata: {
+          dimensions: {
+            width: 800,
+            height: 600,
+          },
+          lqip: null,
+        },
         url: null,
       },
     },
@@ -30,6 +37,13 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id-2",
+        metadata: {
+          dimensions: {
+            width: 800,
+            height: 600,
+          },
+          lqip: null,
+        },
         url: null,
       },
     },
@@ -43,6 +57,13 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id-3",
+        metadata: {
+          dimensions: {
+            width: 800,
+            height: 600,
+          },
+          lqip: null,
+        },
         url: null,
       },
     },
@@ -56,6 +77,13 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id-4",
+        metadata: {
+          dimensions: {
+            width: 800,
+            height: 600,
+          },
+          lqip: null,
+        },
         url: null,
       },
     },
@@ -69,6 +97,13 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
       caption: "Fallback Product Image",
       asset: {
         _id: "fallback-image-id-5",
+        metadata: {
+          dimensions: {
+            width: 800,
+            height: 600,
+          },
+          lqip: null,
+        },
         url: null,
       },
     },

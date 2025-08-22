@@ -75,7 +75,8 @@ export const products = defineType({
           type: "string",
         }),
       ],
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.required().error("Featured product image is required"),
     }),
   ],
 });
