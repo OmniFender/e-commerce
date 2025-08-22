@@ -5,11 +5,13 @@ import { FaShoppingBag, FaUserAlt } from "react-icons/fa";
 import Nav from "./nav/Nav";
 import Menu from "./menu/Menu";
 import classes from "./header.module.scss";
+import Background from "./background/Background";
 import logo from "../../../public/logos/Hamilton.svg";
 
 function Header() {
   return (
     <header className={classes.header}>
+      <Background />
       <div className={classes["header__logo"]}>
         <Link href="/">
           <Image
