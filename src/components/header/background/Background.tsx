@@ -8,7 +8,7 @@ function Background() {
   const { scrollYProgress } = useScroll();
   const background = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6],
+    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
     [
       "transparent",
       "rgba(255,56,92,0.1)",
@@ -17,6 +17,8 @@ function Background() {
       "rgba(255,56,92,0.4)",
       "rgba(255,56,92,0.5)",
       "rgba(255,56,92,0.6)",
+      "rgba(255,56,92,0.7)",
+      "rgba(255,56,92,0.8)",
     ]
   );
   return (

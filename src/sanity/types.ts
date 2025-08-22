@@ -239,7 +239,7 @@ export type FOOTER_NEW_SECTIONResult = Array<{
   sectionTitle: string | null;
 }>;
 // Variable: FEATURED_PRODUCTS_CARDS
-// Query: *[_type == "products" && featured == true]{  _id,  title,  tags,  price,  productImage{    caption,    asset->{      _id,      url    }  }}
+// Query: *[_type == "products" && featured == true]{  _id,  title,  tags,  price,  productImage{    caption,    asset->{      _id,      url,      metadata {      lqip,      blurhash,      exif    }    }  }}
 export type FEATURED_PRODUCTS_CARDSResult = Array<{
   _id: string;
   title: string | null;
@@ -250,11 +250,16 @@ export type FEATURED_PRODUCTS_CARDSResult = Array<{
     asset: {
       _id: string;
       url: string | null;
+      metadata: {
+        lqip: string | null;
+        blurhash: null;
+        exif: null;
+      } | null;
     } | null;
   } | null;
 }>;
 // Variable: PRODUCTS
-// Query: *[_type == "products"]{    _id,    title,    description,    price,    image{      caption,      asset->{        _id,        url      }    }  }
+// Query: *[_type == "products"]{    _id,    title,    description,    price,    image{      caption,      asset->{        _id,        url,        metadata {      lqip,      blurhash,      exif    }      }    }  }
 export type PRODUCTSResult = Array<{
   _id: string;
   title: string | null;
@@ -297,8 +302,8 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n*[_type == \"footerInfo\"]{\n  _id,\n  _type,\n  address,\n    description,\n    emailAddress,\n    footer,\n    phoneNumber,\n}": FOOTER_INFOResult;
     "\n*[_type == \"footerAdditionalSection\"]{\n  _id,\n  _createdAt,\n    sectionList[]{\n      itemName,\n      _key,\n      url,\n    },\n    sectionTitle\n} | order(_createdAt asc)": FOOTER_NEW_SECTIONResult;
-    "\n*[_type == \"products\" && featured == true]{\n  _id,\n  title,\n  tags,\n  price,\n  productImage{\n    caption,\n    asset->{\n      _id,\n      url\n    }\n  }\n}\n  ": FEATURED_PRODUCTS_CARDSResult;
-    "\n  *[_type == \"products\"]{\n    _id,\n    title,\n    description,\n    price,\n    image{\n      caption,\n      asset->{\n        _id,\n        url\n      }\n    }\n  }\n": PRODUCTSResult;
+    "\n*[_type == \"products\" && featured == true]{\n  _id,\n  title,\n  tags,\n  price,\n  productImage{\n    caption,\n    asset->{\n      _id,\n      url,\n      metadata {\n      lqip,\n      blurhash,\n      exif\n    }\n    }\n  }\n}\n  ": FEATURED_PRODUCTS_CARDSResult;
+    "\n  *[_type == \"products\"]{\n    _id,\n    title,\n    description,\n    price,\n    image{\n      caption,\n      asset->{\n        _id,\n        url,\n        metadata {\n      lqip,\n      blurhash,\n      exif\n    }\n      }\n    }\n  }\n": PRODUCTSResult;
     "\n*[_type == \"siteSettings\"]{\n  _id,\n  heroHeadingDescription,\n  heroHeadingText,\n}": HERO_SECTION_SETTINGSResult;
     "\n*[_type == \"products\" && bestSeller == true] {\n  _id,\n  title,\n  price,\n  productImage {\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption\n  }\n}": BESTSELLER_PRODUCTSResult;
   }
