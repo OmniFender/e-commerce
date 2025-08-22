@@ -163,7 +163,7 @@ export default async function Footer() {
             {footerInfo[0].phoneNumber && (
               <li>
                 <a
-                  href={`tel:+${footerInfo[0]?.phoneNumber || "tel:+201065384257"}`}
+                  href={`tel:+${footerInfo[0]?.phoneNumber || "201065384257"}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Phone"

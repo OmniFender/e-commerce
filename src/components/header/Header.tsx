@@ -5,7 +5,7 @@ import { FaShoppingBag, FaUserAlt } from "react-icons/fa";
 import Nav from "./nav/Nav";
 import Menu from "./menu/Menu";
 import classes from "./header.module.scss";
-import logo from "../../../public/logos/Hamilton-black.svg";
+import logo from "../../../public/logos/Hamilton.svg";
 
 function Header() {
   return (
