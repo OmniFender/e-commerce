@@ -33,7 +33,14 @@ export const FEATURED_PRODUCTS_CARDS = defineQuery(`
     caption,
     asset->{
       _id,
-      url
+      url,
+         metadata {
+          dimensions {
+            width,
+            height
+          },
+        lqip
+      }
     }
   }
 }
@@ -49,7 +56,14 @@ export const PRODUCTS = defineQuery(`
       caption,
       asset->{
         _id,
-        url
+        url,
+          metadata {
+            dimensions {
+              width,
+              height
+            },
+            lqip
+          }
       }
     }
   }
