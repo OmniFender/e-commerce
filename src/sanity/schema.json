@@ -99,6 +99,14 @@
         },
         "optional": true
       },
+      "productSlug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
+        },
+        "optional": true
+      },
       "description": {
         "type": "objectAttribute",
         "value": {

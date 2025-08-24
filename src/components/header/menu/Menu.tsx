@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { TiThMenu } from "react-icons/ti";
 import { AnimatePresence, motion } from "motion/react";
@@ -8,7 +9,7 @@ import useClickOutside from "@/hooks/use-click-outside/useClickOutside";
 
 import classes from "./menu.module.scss";
 
-function Menu() {
+function Menu({ isHomePage }: { isHomePage: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const menuref = useRef(null);
 
@@ -24,14 +25,17 @@ function Menu() {
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
     const target = e.target as HTMLElement;
-    if (target.tagName === "LI") {
+    if (target.tagName === "A") {
       setIsOpen(false);
     }
   }
 
   return (
     <>
-      <button onClick={handleMenuToggle} className={classes["menu__button"]}>
+      <button
+        onClick={handleMenuToggle}
+        className={`${isHomePage ? "" : classes["menu__button--not-home"]} ${classes["menu__button"]}`}
+      >
         <TiThMenu />
       </button>
       <AnimatePresence>
@@ -46,19 +50,33 @@ function Menu() {
             className={classes.menu}
           >
             <ul>
-              <li>Help Center</li>
-              <li>Gift Cards</li>
-              <li>Our Stores</li>
+              <li>
+                <Link href="/">Help Center</Link>
+              </li>
+              <li>
+                <Link href="/">Gift Cards</Link>
+              </li>
+              <li>
+                <Link href="/">Our Stores</Link>
+              </li>
             </ul>
             <div className={`${classes.mobile} divider`} />
             <ul className={classes.mobile}>
-              <li>Shop</li>
-              <li>About Us</li>
-              <li>Contact Us</li>
+              <li>
+                <Link href="/shop">Shop</Link>
+              </li>
+              <li>
+                <Link href="/">About Us</Link>
+              </li>
+              <li>
+                <Link href="/">Contact Us</Link>
+              </li>
             </ul>
             <div className={`${classes.mobile} divider`} />
             <ul className={classes.mobile}>
-              <li>Log in/ Sign Up</li>
+              <li>
+                <Link href="/">Log In / Sign Up</Link>
+              </li>
             </ul>
           </motion.div>
         )}
