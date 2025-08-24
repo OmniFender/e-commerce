@@ -24,8 +24,9 @@ export const FOOTER_NEW_SECTION = defineQuery(`
 } | order(_createdAt asc)`);
 
 export const FEATURED_PRODUCTS_CARDS = defineQuery(`
-*[_type == "products" && featured == true]{
+*[_type == "products" && featured == true] [0...8] {
   _id,
+  _createdAt,
   title,
   tags,
   price,
@@ -43,31 +44,32 @@ export const FEATURED_PRODUCTS_CARDS = defineQuery(`
       }
     }
   }
-}
+} | order(_createdAt desc)
   `);
 
 export const PRODUCTS = defineQuery(`
-  *[_type == "products"]{
-    _id,
-    title,
-    description,
-    price,
-    image{
-      caption,
-      asset->{
-        _id,
-        url,
-          metadata {
-            dimensions {
-              width,
-              height
-            },
-            lqip
-          }
+*[_type == "products"]  {
+  _id,
+  _createdAt,
+  title,
+  tags[],
+  price,
+  productImage{
+    caption,
+    asset->{
+      _id,
+      url,
+         metadata {
+          dimensions {
+            width,
+            height
+          },
+        lqip
       }
     }
   }
-`);
+} | order(_createdAt desc)
+  `);
 
 export const HERO_SECTION_SETTINGS = defineQuery(`
 *[_type == "siteSettings"]{
