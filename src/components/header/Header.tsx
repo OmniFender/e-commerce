@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { FaShoppingBag, FaUserAlt } from "react-icons/fa";
 import { motion, useScroll, useTransform } from "motion/react";
@@ -12,7 +13,9 @@ import classes from "./header.module.scss";
 import whiteLogo from "../../../public/logos/Hamilton-white.svg";
 import blackLogo from "../../../public/logos/Hamilton-black.svg";
 
-function Header() {
+function Header({ announcementBarTopPeoperty }: { announcementBarTopPeoperty: number }) {
+  const [scroll, setScroll] = useState(announcementBarTopPeoperty);
+
   const { scrollYProgress } = useScroll();
   const backgroundColor = useTransform(
     scrollYProgress,
@@ -34,15 +37,42 @@ function Header() {
 
   const isHomePage = router === "/" ? true : false;
 
+  useEffect(() => {
+    if (!announcementBarTopPeoperty) {
+      setScroll(0);
+      return;
+    } else {
+      setScroll(50);
+    }
+
+    addEventListener("scroll", scrollHandling);
+    return () => {
+      removeEventListener("scroll", scrollHandling);
+    };
+  }, [announcementBarTopPeoperty]);
+
+  function scrollHandling() {
+    if (window !== undefined) {
+      const scrollY = window.scrollY;
+      if (scrollY <= 50) {
+        setScroll(50 - scrollY);
+      }
+      if (scrollY > 50) {
+        setScroll(0);
+      }
+    }
+  }
+
   return (
     <motion.header
       className={classes.header}
       style={
         isHomePage
-          ? { backgroundColor }
+          ? { backgroundColor, top: `${scroll}px` }
           : {
               backgroundColor: "#fff",
               borderBottomColor: "rgba(108, 117, 125, 0.2)",
+              top: `${scroll}px`,
             }
       }
     >

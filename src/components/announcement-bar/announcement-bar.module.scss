@@ -1,0 +1,34 @@
+.announcement-bar {
+  height: 50px;
+  overflow: hidden;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  color: var(--white-color);
+  background: linear-gradient(90deg, #e41d57 0%, #f82d5a 50%, #ff385c 100%);
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+    flex-shrink: 0;
+    min-width: 100%;
+    animation: 180s infinite-slide infinite linear;
+    span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+@keyframes infinite-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

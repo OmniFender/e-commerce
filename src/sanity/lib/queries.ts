@@ -95,3 +95,10 @@ export const BESTSELLER_PRODUCTS = defineQuery(`
     caption
   }
 }`);
+
+export const ANNOUNCEMENT_BAR_SETTIGNS = defineQuery(`
+*[_type == "siteSettings"]{
+  _id,
+  announcementBar,
+  announcementBarText
+}`);

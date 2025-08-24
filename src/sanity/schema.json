@@ -54,6 +54,20 @@
           "type": "string"
         },
         "optional": true
+      },
+      "announcementBar": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": true
+      },
+      "announcementBarText": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
       }
     }
   },
