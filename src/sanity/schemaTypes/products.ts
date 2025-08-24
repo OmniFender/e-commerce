@@ -15,6 +15,21 @@ export const products = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "productSlug",
+      title: "Product's Slug",
+      type: "slug",
+      description:
+        "Please Click 'Generate' after Writting the product's Name, The slug of the product will be used in the products page URL, e.g. /shop/'product-1'",
+      options: {
+        source: "title",
+        maxLength: 96,
+      },
+      validation: (Rule) =>
+        Rule.required().error(
+          "Products's slug is required, Please Click 'Generate'"
+        ),
+    }),
+    defineField({
       name: "description",
       title: "Description",
       description: "A brief description of the product",

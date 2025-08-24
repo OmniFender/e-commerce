@@ -5,14 +5,20 @@ import { motion, useScroll, useTransform } from "motion/react";
 
 import classes from "./nav.module.scss";
 
-function Nav() {
+function Nav({ isHomePage }: { isHomePage: boolean }) {
   const { scrollYProgress } = useScroll();
-  const padding = useTransform(scrollYProgress, [0, 0.1, 0.2], ["20px", "15px", "10px"]);
+  const padding = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2],
+    ["20px", "15px", "10px"]
+  );
   return (
-    <nav className={classes.nav}>
+    <nav
+      className={`${isHomePage ? "" : classes["nav--not-home"]} ${classes.nav}`}
+    >
       <ul>
         <li>
-          <Link href="/" passHref legacyBehavior>
+          <Link href="/shop" passHref legacyBehavior>
             <motion.a style={{ padding }}>Shop</motion.a>
           </Link>
         </li>

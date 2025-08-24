@@ -4,3 +4,7 @@ export function formattedPrice(price: number) {
     currency: "USD",
   }).format(price ?? 0);
 }
+
+export function capitalizeWordsRegex(text: string) {
+  return text.replace(/(^\w|\s\w)/g, (match) => match.toUpperCase());
+}
