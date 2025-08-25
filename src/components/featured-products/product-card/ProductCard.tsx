@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,7 +25,7 @@ export default function ProductCard({
         className={`${classes["featured-products__container-item"]}`}
         aria-label="Featured Product"
       >
-        <Link href={`/shop/${product._id}`} key={product._id}>
+        <Link href={`/shop/${product.slug}`} key={product._id}>
           {product.productImage ? (
             <Image
               src={urlFor(product.productImage)

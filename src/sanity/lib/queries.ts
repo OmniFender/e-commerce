@@ -24,11 +24,13 @@ export const FOOTER_NEW_SECTION = defineQuery(`
 } | order(_createdAt asc)`);
 
 export const FEATURED_PRODUCTS_CARDS = defineQuery(`
-*[_type == "products" && featured == true]{
+*[_type == "products" && featured == true][0...8]{
   _id,
+  _createdAt,
   title,
   tags,
   price,
+  "slug": productSlug.current,
   productImage{
     asset->{
       _id,
@@ -43,15 +45,18 @@ export const FEATURED_PRODUCTS_CARDS = defineQuery(`
     },
     caption,
   }
-}`);
+} | order(_createdAt desc)
+  `);
 
 export const PRODUCTS = defineQuery(`
 *[_type == "products"]{
   _id,
+  _createdAt,
   title,
-  description,
+  tags[],
   price,
-  image{
+  "slug": productSlug.current,
+  productImage{
     asset->{
       _id,
       url,
@@ -65,7 +70,8 @@ export const PRODUCTS = defineQuery(`
     },
     caption,
   }
-}`);
+} | order(_createdAt desc)
+  `);
 
 export const HERO_SECTION_SETTINGS = defineQuery(`
 *[_type == "siteSettings"]{

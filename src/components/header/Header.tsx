@@ -13,30 +13,11 @@ import classes from "./header.module.scss";
 import whiteLogo from "../../../public/logos/Hamilton-white.svg";
 import blackLogo from "../../../public/logos/Hamilton-black.svg";
 
-function Header() {
-  const { scrollYProgress } = useScroll();
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
-    [
-      "transparent",
-      "rgba(255,56,92,0.1)",
-      "rgba(255,56,92,0.2)",
-      "rgba(255,56,92,0.3)",
-      "rgba(255,56,92,0.4)",
-      "rgba(255,56,92,0.5)",
-      "rgba(255,56,92,0.6)",
-      "rgba(255,56,92,0.7)",
-      "rgba(255,56,92,0.8)",
-    ]
-  );
-
-  const router = usePathname();
-
-  const isHomePage = router === "/" ? true : false;
-
-
-function Header({ announcementBarTopPeoperty }: { announcementBarTopPeoperty: number }) {
+function Header({
+  announcementBarTopPeoperty,
+}: {
+  announcementBarTopPeoperty: number;
+}) {
   const [scroll, setScroll] = useState(announcementBarTopPeoperty);
 
   const { scrollYProgress } = useScroll();
@@ -91,18 +72,14 @@ function Header({ announcementBarTopPeoperty }: { announcementBarTopPeoperty: nu
       className={classes.header}
       style={
         isHomePage
-
-          ? { backgroundColor }
-          : {
-              backgroundColor: "#fff",
-              borderBottomColor: "rgba(108, 117, 125, 0.2)",
-
-          ? { backgroundColor, top: `${scroll}px` }
+          ? {
+              backgroundColor,
+              top: `${scroll}px`,
+            }
           : {
               backgroundColor: "#fff",
               borderBottomColor: "rgba(108, 117, 125, 0.2)",
               top: `${scroll}px`,
-
             }
       }
     >

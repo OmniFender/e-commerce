@@ -1,8 +1,9 @@
+import { Suspense } from "react";
+
 import PageHeading from "@/components/page-heading/PageHeading";
+import ProductsGrid from "@/components/products-grid/ProductsGrid";
+
 import classes from "./page.module.scss";
-import { cabin, eduNSWACTCursive } from "@/utils/fonts";
-import classes from "./page.module.scss";
-import Breadcrumb from "@/helper_components/breadcrumb/Breadcrumb";
 
 function page() {
   return (
@@ -12,17 +13,9 @@ function page() {
           headingText="Shopping"
           descriptionText="Life’s short. Buy the clothes, wear the smile."
         />
-        <Breadcrumb />
-        <h1
-          className={`${classes["home-page__heading-text"]} ${cabin.className}`}
-        >
-          Shopping
-        </h1>
-        <p
-          className={`${classes["home-page__description-text"]} ${eduNSWACTCursive.className}`}
-        >
-          Life’s short. Buy the clothes, wear the smile.
-        </p>
+        <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
+          <ProductsGrid />
+        </Suspense>
       </section>
     </>
   );
