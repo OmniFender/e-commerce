@@ -9,6 +9,7 @@ export function capitalizeWordsRegex(text: string) {
   return text.replace(/(^\w|\s\w)/g, (match) => match.toUpperCase());
 }
 
+
 export function timeToReadAnnouncementBarText(announcementBarText: string) {
   const textLength = announcementBarText.length;
   const AVG_WORDS_PER_MINUTE = 180;

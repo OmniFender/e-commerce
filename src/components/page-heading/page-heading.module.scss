@@ -1,0 +1,15 @@
+.heading-text {
+  font-size: 3rem;
+  letter-spacing: 2px;
+  font-weight: 400;
+  text-align: center;
+}
+.description-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: var(--font-size-lg);
+  letter-spacing: 2px;
+  color: rgba($color: #000, $alpha: 0.75);
+  opacity: 0.5;
+  text-wrap: pretty;
+}
