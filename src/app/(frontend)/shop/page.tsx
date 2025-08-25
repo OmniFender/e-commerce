@@ -13,12 +13,10 @@ function page() {
           headingText="Shopping"
           descriptionText="Life’s short. Buy the clothes, wear the smile."
         />
+        <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
+          <ProductsGrid />
+        </Suspense>
       </section>
-
-      {/* just initial loading state untill we implement the full loading logic */}
-      <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
-        <ProductsGrid />
-      </Suspense>
     </>
   );
 }

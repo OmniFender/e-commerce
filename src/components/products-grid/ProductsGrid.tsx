@@ -22,10 +22,10 @@ export default async function ProductsGrid() {
   }
 
   return (
-    <section className={classes["products-grid"]}>
+    <div className={classes["products-grid"]}>
       {products.map((product: PRODUCTSResult[number]) => (
         <ProductCard key={product._id} product={product} />
       ))}
-    </section>
+    </div>
   );
 }

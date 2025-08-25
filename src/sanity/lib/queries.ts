@@ -24,7 +24,7 @@ export const FOOTER_NEW_SECTION = defineQuery(`
 } | order(_createdAt asc)`);
 
 export const FEATURED_PRODUCTS_CARDS = defineQuery(`
-*[_type == "products" && featured == true] [0...8] {
+*[_type == "products" && featured == true][0...8]{
   _id,
   _createdAt,
   title,
@@ -49,7 +49,7 @@ export const FEATURED_PRODUCTS_CARDS = defineQuery(`
   `);
 
 export const PRODUCTS = defineQuery(`
-*[_type == "products"]  {
+*[_type == "products"]{
   _id,
   _createdAt,
   title,
@@ -69,7 +69,6 @@ export const PRODUCTS = defineQuery(`
         lqip
       }
     },
-    caption,
   }
 } | order(_createdAt desc)
   `);

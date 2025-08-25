@@ -1,6 +1,22 @@
 .products-grid {
-  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
   gap: var(--spacing-sm);
+}
+@media screen and (max-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+}
+@media screen and (max-width: 800px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: repeat(1, minmax(150px, 1fr));
+  }
 }
