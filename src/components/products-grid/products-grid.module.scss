@@ -1,0 +1,6 @@
+.products-grid {
+  padding: var(--spacing-lg);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-sm);
+}
