@@ -11,8 +11,9 @@ import classes from "./featured-products.module.scss";
 const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
   {
     _id: "Fallback-1",
+    _createdAt: "",
+    slug: "",
     title: "Fallback Product 1",
-
     productImage: {
       caption: "Fallback Product Image",
       asset: {
@@ -32,6 +33,8 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
   },
   {
     _id: "Fallback-2",
+    _createdAt: "",
+    slug: "",
     title: "Fallback Product 2",
     productImage: {
       caption: "Fallback Product Image",
@@ -52,6 +55,8 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
   },
   {
     _id: "Fallback-3",
+    _createdAt: "",
+    slug: "",
     title: "Fallback Product 3",
     productImage: {
       caption: "Fallback Product Image",
@@ -72,6 +77,8 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
   },
   {
     _id: "Fallback-4",
+    _createdAt: "",
+    slug: "",
     title: "Fallback Product 4",
     productImage: {
       caption: "Fallback Product Image",
@@ -92,6 +99,8 @@ const FALLBACK_PRODUCTS: FEATURED_PRODUCTS_CARDSResult = [
   },
   {
     _id: "Fallback-5",
+    _createdAt: "",
+    slug: "",
     title: "Fallback Product 5",
     productImage: {
       caption: "Fallback Product Image",
