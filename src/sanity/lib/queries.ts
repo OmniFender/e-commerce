@@ -30,19 +30,20 @@ export const FEATURED_PRODUCTS_CARDS = defineQuery(`
   title,
   tags,
   price,
+  "slug": productSlug.current,
   productImage{
-    caption,
     asset->{
       _id,
       url,
-         metadata {
-          dimensions {
-            width,
-            height
-          },
+      metadata {
+        dimensions {
+          width,
+          height
+        },
         lqip
       }
-    }
+    },
+    caption,
   }
 } | order(_createdAt desc)
   `);
@@ -54,6 +55,7 @@ export const PRODUCTS = defineQuery(`
   title,
   tags[],
   price,
+  "slug": productSlug.current,
   productImage{
     caption,
     asset->{
@@ -66,7 +68,8 @@ export const PRODUCTS = defineQuery(`
           },
         lqip
       }
-    }
+    },
+    caption,
   }
 } | order(_createdAt desc)
   `);
@@ -83,6 +86,7 @@ export const BESTSELLER_PRODUCTS = defineQuery(`
   _id,
   title,
   price,
+  "slug": productSlug.current,
   productImage {
     asset->{
       _id,
@@ -97,4 +101,11 @@ export const BESTSELLER_PRODUCTS = defineQuery(`
     },
     caption
   }
+}`);
+
+export const ANNOUNCEMENT_BAR_SETTIGNS = defineQuery(`
+*[_type == "siteSettings"]{
+  _id,
+  announcementBar,
+  announcementBarText
 }`);

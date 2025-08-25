@@ -22,6 +22,8 @@ export type SiteSettings = {
   name?: string;
   heroHeadingText?: string;
   heroHeadingDescription?: string;
+  announcementBar?: boolean;
+  announcementBarText?: string;
 };
 
 export type Products = {
@@ -31,6 +33,7 @@ export type Products = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  productSlug?: Slug;
   description?: string;
   price?: number;
   tags?: Array<string>;
@@ -239,15 +242,15 @@ export type FOOTER_NEW_SECTIONResult = Array<{
   sectionTitle: string | null;
 }>;
 // Variable: FEATURED_PRODUCTS_CARDS
-// Query: *[_type == "products" && featured == true] [0...8] {  _id,  _createdAt,  title,  tags,  price,  productImage{    caption,    asset->{      _id,      url,         metadata {          dimensions {            width,            height          },        lqip      }    }  }} | order(_createdAt desc)
+// Query: *[_type == "products" && featured == true] [0...8] {  _id,  _createdAt,  title,  tags,  price,  "slug": productSlug.current,  productImage{    asset->{      _id,      url,      metadata {        dimensions {          width,          height        },        lqip      }    },    caption,  }} | order(_createdAt desc)
 export type FEATURED_PRODUCTS_CARDSResult = Array<{
   _id: string;
   _createdAt: string;
   title: string | null;
   tags: Array<string> | null;
   price: number | null;
+  slug: string | null;
   productImage: {
-    caption: string | null;
     asset: {
       _id: string;
       url: string | null;
@@ -259,16 +262,18 @@ export type FEATURED_PRODUCTS_CARDSResult = Array<{
         lqip: string | null;
       } | null;
     } | null;
+    caption: string | null;
   } | null;
 }>;
 // Variable: PRODUCTS
-// Query: *[_type == "products"]  {  _id,  _createdAt,  title,  tags[],  price,  productImage{    caption,    asset->{      _id,      url,         metadata {          dimensions {            width,            height          },        lqip      }    }  }} | order(_createdAt desc)
+// Query: *[_type == "products"]  {  _id,  _createdAt,  title,  tags[],  price,  "slug": productSlug.current,  productImage{    caption,    asset->{      _id,      url,         metadata {          dimensions {            width,            height          },        lqip      }    },    caption,  }} | order(_createdAt desc)
 export type PRODUCTSResult = Array<{
   _id: string;
   _createdAt: string;
   title: string | null;
   tags: Array<string> | null;
   price: number | null;
+  slug: string | null;
   productImage: {
     caption: string | null;
     asset: {
@@ -292,11 +297,12 @@ export type HERO_SECTION_SETTINGSResult = Array<{
   heroHeadingText: string | null;
 }>;
 // Variable: BESTSELLER_PRODUCTS
-// Query: *[_type == "products" && bestSeller == true] {  _id,  title,  price,  productImage {    asset->{      _id,      url,      metadata {        dimensions {          width,          height        },        lqip      }    },    caption  }}
+// Query: *[_type == "products" && bestSeller == true] {  _id,  title,  price,  "slug": productSlug.current,  productImage {    asset->{      _id,      url,      metadata {        dimensions {          width,          height        },        lqip      }    },    caption  }}
 export type BESTSELLER_PRODUCTSResult = Array<{
   _id: string;
   title: string | null;
   price: number | null;
+  slug: string | null;
   productImage: {
     asset: {
       _id: string;
@@ -312,6 +318,13 @@ export type BESTSELLER_PRODUCTSResult = Array<{
     caption: string | null;
   } | null;
 }>;
+// Variable: ANNOUNCEMENT_BAR_SETTIGNS
+// Query: *[_type == "siteSettings"]{  _id,  announcementBar,  announcementBarText}
+export type ANNOUNCEMENT_BAR_SETTIGNSResult = Array<{
+  _id: string;
+  announcementBar: boolean | null;
+  announcementBarText: string | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -319,9 +332,10 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n*[_type == \"footerInfo\"]{\n  _id,\n  _type,\n  address,\n    description,\n    emailAddress,\n    footer,\n    phoneNumber,\n}": FOOTER_INFOResult;
     "\n*[_type == \"footerAdditionalSection\"]{\n  _id,\n  _createdAt,\n    sectionList[]{\n      itemName,\n      _key,\n      url,\n    },\n    sectionTitle\n} | order(_createdAt asc)": FOOTER_NEW_SECTIONResult;
-    "\n*[_type == \"products\" && featured == true] [0...8] {\n  _id,\n  _createdAt,\n  title,\n  tags,\n  price,\n  productImage{\n    caption,\n    asset->{\n      _id,\n      url,\n         metadata {\n          dimensions {\n            width,\n            height\n          },\n        lqip\n      }\n    }\n  }\n} | order(_createdAt desc)\n  ": FEATURED_PRODUCTS_CARDSResult;
-    "\n*[_type == \"products\"]  {\n  _id,\n  _createdAt,\n  title,\n  tags[],\n  price,\n  productImage{\n    caption,\n    asset->{\n      _id,\n      url,\n         metadata {\n          dimensions {\n            width,\n            height\n          },\n        lqip\n      }\n    }\n  }\n} | order(_createdAt desc)\n  ": PRODUCTSResult;
+    "\n*[_type == \"products\" && featured == true] [0...8] {\n  _id,\n  _createdAt,\n  title,\n  tags,\n  price,\n  \"slug\": productSlug.current,\n  productImage{\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption,\n  }\n} | order(_createdAt desc)\n  ": FEATURED_PRODUCTS_CARDSResult;
+    "\n*[_type == \"products\"]  {\n  _id,\n  _createdAt,\n  title,\n  tags[],\n  price,\n  \"slug\": productSlug.current,\n  productImage{\n    caption,\n    asset->{\n      _id,\n      url,\n         metadata {\n          dimensions {\n            width,\n            height\n          },\n        lqip\n      }\n    },\n    caption,\n  }\n} | order(_createdAt desc)\n  ": PRODUCTSResult;
     "\n*[_type == \"siteSettings\"]{\n  _id,\n  heroHeadingDescription,\n  heroHeadingText,\n}": HERO_SECTION_SETTINGSResult;
-    "\n*[_type == \"products\" && bestSeller == true] {\n  _id,\n  title,\n  price,\n  productImage {\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption\n  }\n}": BESTSELLER_PRODUCTSResult;
+    "\n*[_type == \"products\" && bestSeller == true] {\n  _id,\n  title,\n  price,\n  \"slug\": productSlug.current,\n  productImage {\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption\n  }\n}": BESTSELLER_PRODUCTSResult;
+    "\n*[_type == \"siteSettings\"]{\n  _id,\n  announcementBar,\n  announcementBarText\n}": ANNOUNCEMENT_BAR_SETTIGNSResult;
   }
 }

@@ -1,0 +1,59 @@
+.home-page {
+  padding: 125px var(--spacing-3xl) 50px;
+  &__heading-text {
+    font-size: 3rem;
+    letter-spacing: 2px;
+    font-weight: 400;
+    text-align: center;
+  }
+  &__description-text {
+    text-align: center;
+    margin-top: 10px;
+    font-size: var(--font-size-lg);
+    letter-spacing: 2px;
+    color: rgba($color: #000, $alpha: 0.75);
+    opacity: 0.5;
+    text-wrap: pretty;
+  }
+}
+
+@media (max-width: 1024px) {
+  .home-page {
+    padding: 125px var(--spacing-2xl) 50px;
+  }
+}
+
+@media (max-width: 970px) {
+  .home-page {
+    padding: 125px var(--spacing-lg) 50px;
+  }
+}
+
+@media (max-width: 870px) {
+  .home-page {
+    padding: 125px var(--spacing-sm) 50px;
+  }
+}
+
+@media (max-width: 850px) {
+  .home-page {
+    padding: 100px var(--spacing-xl) 50px;
+  }
+}
+
+// just initial loading state untill we implement the full loading logic
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  animation: loading 1s ease-in-out infinite;
+  @keyframes loading {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
