@@ -22,6 +22,8 @@ export type SiteSettings = {
   name?: string;
   heroHeadingText?: string;
   heroHeadingDescription?: string;
+  announcementBar?: boolean;
+  announcementBarText?: string;
 };
 
 export type Products = {
@@ -299,6 +301,13 @@ export type BESTSELLER_PRODUCTSResult = Array<{
     caption: string | null;
   } | null;
 }>;
+// Variable: ANNOUNCEMENT_BAR_SETTIGNS
+// Query: *[_type == "siteSettings"]{  _id,  announcementBar,  announcementBarText}
+export type ANNOUNCEMENT_BAR_SETTIGNSResult = Array<{
+  _id: string;
+  announcementBar: boolean | null;
+  announcementBarText: string | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -310,5 +319,6 @@ declare module "@sanity/client" {
     "\n*[_type == \"products\"]{\n  _id,\n  title,\n  description,\n  price,\n  image{\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption,\n  }\n}": PRODUCTSResult;
     "\n*[_type == \"siteSettings\"]{\n  _id,\n  heroHeadingDescription,\n  heroHeadingText,\n}": HERO_SECTION_SETTINGSResult;
     "\n*[_type == \"products\" && bestSeller == true] {\n  _id,\n  title,\n  price,\n  \"slug\": productSlug.current,\n  productImage {\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption\n  }\n}": BESTSELLER_PRODUCTSResult;
+    "\n*[_type == \"siteSettings\"]{\n  _id,\n  announcementBar,\n  announcementBarText\n}": ANNOUNCEMENT_BAR_SETTIGNSResult;
   }
 }
