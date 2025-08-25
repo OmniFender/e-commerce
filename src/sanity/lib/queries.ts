@@ -57,18 +57,18 @@ export const PRODUCTS = defineQuery(`
   price,
   "slug": productSlug.current,
   productImage{
-    caption,
     asset->{
       _id,
       url,
-         metadata {
-          dimensions {
-            width,
-            height
-          },
+      metadata {
+        dimensions {
+          width,
+          height
+        },
         lqip
       }
     },
+    caption,
   }
 } | order(_createdAt desc)
   `);

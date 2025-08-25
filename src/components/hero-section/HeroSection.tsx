@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { nunito } from "@/utils/fonts";
 import { urlFor } from "@/sanity/lib/image";
+import { formattedPrice } from "@/utils/utils";
 import { sanityFetch } from "@/sanity/lib/live";
 import { BESTSELLER_PRODUCTSResult } from "@/sanity/types";
 import {
@@ -99,7 +100,7 @@ async function HeroSection() {
                     }
                   >
                     <h3>{product.title}</h3>
-                    <p>{`${product.price} $`}</p>
+                    <p>{formattedPrice(product.price ?? 0)}</p>
                   </div>
                 </Link>
               ))}
@@ -136,9 +137,7 @@ async function HeroSection() {
                     }
                   >
                     <h3>{product.title}</h3>
-                    <div>
-                      <p>{`${product.price} $`}</p>
-                    </div>
+                    <p>{formattedPrice(Number(product.price))}</p>
                   </div>
                 </Link>
               ))}
