@@ -1,8 +1,9 @@
-import PageHeading from "@/components/page-heading/PageHeading";
-import classes from "./page.module.scss";
-import Breadcrumb from "@/helper_components/breadcrumb/Breadcrumb";
-import ProductsGrid from "@/components/products-grid/ProductsGrid";
 import { Suspense } from "react";
+
+import PageHeading from "@/components/page-heading/PageHeading";
+import ProductsGrid from "@/components/products-grid/ProductsGrid";
+
+import classes from "./page.module.scss";
 
 function page() {
   return (
