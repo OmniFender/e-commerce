@@ -7,7 +7,7 @@
   align-items: center;
   position: fixed;
   width: 100%;
-  top: 0;
+  top: 50px;
   z-index: 5;
   &__logo {
     width: 180px;
@@ -35,6 +35,10 @@
       color: var(--white-color);
       &:hover {
         background-color: rgba($color: #6c757d, $alpha: 0.5);
+      }
+      &--not-home {
+        color: var(--black-color);
+        background-color: rgba($color: #6c757d, $alpha: 0.2);
       }
     }
   }

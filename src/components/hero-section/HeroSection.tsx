@@ -61,7 +61,7 @@ async function HeroSection() {
             "Discover the pieces everyone’s adding to their cart and join thousands of fashion lovers who know what’s trending before it hits the streets."}
         </p>
         <div className={classes["hero-section__controls"]}>
-          <Link href="/">Shop Now</Link>
+          <Link href="/shop">Shop Now</Link>
         </div>
       </div>
       <div className={classes["hero-section__products"]}>
@@ -70,7 +70,7 @@ async function HeroSection() {
             <div className={classes["hero-section__products-slider"]}>
               {bestSellerSlider.map((product) => (
                 <Link
-                  href="/"
+                  href={`shop/${product.slug}`}
                   key={product._id}
                   className={classes["hero-section__products-slider-cards"]}
                 >
@@ -107,7 +107,7 @@ async function HeroSection() {
             <div className={classes["hero-section__products-slider"]}>
               {bestSellerSlider.map((product) => (
                 <Link
-                  href="/"
+                  href={`shop/${product.slug}`}
                   key={product._id}
                   className={classes["hero-section__products-slider-cards"]}
                 >

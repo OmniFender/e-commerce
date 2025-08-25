@@ -30,44 +30,42 @@ export const FEATURED_PRODUCTS_CARDS = defineQuery(`
   tags,
   price,
   productImage{
-    caption,
     asset->{
       _id,
       url,
-         metadata {
-          dimensions {
-            width,
-            height
-          },
+      metadata {
+        dimensions {
+          width,
+          height
+        },
         lqip
       }
-    }
+    },
+    caption,
   }
-}
-  `);
+}`);
 
 export const PRODUCTS = defineQuery(`
-  *[_type == "products"]{
-    _id,
-    title,
-    description,
-    price,
-    image{
-      caption,
-      asset->{
-        _id,
-        url,
-          metadata {
-            dimensions {
-              width,
-              height
-            },
-            lqip
-          }
+*[_type == "products"]{
+  _id,
+  title,
+  description,
+  price,
+  image{
+    asset->{
+      _id,
+      url,
+      metadata {
+        dimensions {
+          width,
+          height
+        },
+        lqip
       }
-    }
+    },
+    caption,
   }
-`);
+}`);
 
 export const HERO_SECTION_SETTINGS = defineQuery(`
 *[_type == "siteSettings"]{
@@ -81,6 +79,7 @@ export const BESTSELLER_PRODUCTS = defineQuery(`
   _id,
   title,
   price,
+  "slug": productSlug.current,
   productImage {
     asset->{
       _id,
@@ -95,4 +94,11 @@ export const BESTSELLER_PRODUCTS = defineQuery(`
     },
     caption
   }
+}`);
+
+export const ANNOUNCEMENT_BAR_SETTIGNS = defineQuery(`
+*[_type == "siteSettings"]{
+  _id,
+  announcementBar,
+  announcementBarText
 }`);
