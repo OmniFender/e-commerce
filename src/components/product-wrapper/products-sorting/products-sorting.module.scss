@@ -1,0 +1,23 @@
+.select {
+  border: 0;
+  outline: 0;
+  background-color: #eee;
+  padding: 20px;
+  width: 250px;
+  border-radius: 10px;
+  cursor: pointer;
+  &::picker-icon {
+    transition: rotate 0.5s;
+  }
+  &:open::picker-icon {
+    rotate: 180deg;
+  }
+  option {
+    padding: 15px 10px;
+    background-color: var(--bg-primary-color);
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: rgba($color: #6c757d, $alpha: 0.1);
+    }
+  }
+}
