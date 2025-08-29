@@ -1,0 +1,55 @@
+.FilterPriceModal {
+  position: relative;
+  &__button {
+    width: 90px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    &__text {
+      font-weight: bold;
+      user-select: none;
+    }
+    &__arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--border-radius-full);
+      background-color: var(--bg-primary-color);
+      color: black;
+    }
+  }
+  &__modal {
+    width: 50%;
+    padding: 1rem;
+    background-color: white;
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    span {
+      width: 100px;
+      padding: var(--spacing-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border-radius: calc(var(--border-radius-sm) - var(--spacing-xs));
+      font-size: var(--font-size-xs);
+    }
+    &__slider {
+      margin: 1rem 0;
+      display: flex;
+      
+    }
+  }
+}

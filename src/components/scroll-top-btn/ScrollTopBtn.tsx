@@ -30,9 +30,12 @@ export default function ScrollTopBtn({
     });
   };
 
-  return isVisible ? (
-    <button onClick={scrollToTop} className={classes.Btn_scrollTop}>
+  return (
+    <button
+      onClick={scrollToTop}
+      className={`${classes.Btn_scrollTop} ${isVisible ? classes.show : ""}`}
+    >
       {children}
     </button>
-  ) : null;
+  );
 }
