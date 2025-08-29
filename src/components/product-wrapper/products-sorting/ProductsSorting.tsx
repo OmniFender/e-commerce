@@ -17,8 +17,12 @@ function ProductsSorting({
         onChange={handleSelectChange}
         name="sorting"
         className={classes.select}
+        defaultValue={"sort"}
       >
-        <option value="">Sort By:</option>
+        <option value="sort" disabled>
+          Sort By:
+        </option>
+        <option value="">Default</option>
         <option value="title asc">Alphabetically A-Z</option>
         <option value="title desc">Alphabetically Z-A</option>
         <option value="price asc">Lowest Price</option>
