@@ -266,7 +266,7 @@ export type FEATURED_PRODUCTS_CARDSResult = Array<{
   } | null;
 }>;
 // Variable: PRODUCTS
-// Query: *[_type == "products"]{  _id,  _createdAt,  title,  tags[],  price,  "slug": productSlug.current,  productImage{    asset->{      _id,      url,      metadata {        dimensions {          width,          height        },        lqip      }    },    caption,  }} | order(_createdAt desc)
+// Query: *[_type == "products"]{  _id,  _createdAt,  title,  tags[],  price,  "slug": productSlug.current,  productImage{    asset->{      _id,      url,      metadata {        dimensions {          width,          height        },        lqip      }    },    caption,  }}
 export type PRODUCTSResult = Array<{
   _id: string;
   _createdAt: string;
@@ -333,7 +333,7 @@ declare module "@sanity/client" {
     "\n*[_type == \"footerInfo\"]{\n  _id,\n  _type,\n  address,\n    description,\n    emailAddress,\n    footer,\n    phoneNumber,\n}": FOOTER_INFOResult;
     "\n*[_type == \"footerAdditionalSection\"]{\n  _id,\n  _createdAt,\n    sectionList[]{\n      itemName,\n      _key,\n      url,\n    },\n    sectionTitle\n} | order(_createdAt asc)": FOOTER_NEW_SECTIONResult;
     "\n*[_type == \"products\" && featured == true][0...8]{\n  _id,\n  _createdAt,\n  title,\n  tags,\n  price,\n  \"slug\": productSlug.current,\n  productImage{\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption,\n  }\n} | order(_createdAt desc)\n  ": FEATURED_PRODUCTS_CARDSResult;
-    "\n*[_type == \"products\"]{\n  _id,\n  _createdAt,\n  title,\n  tags[],\n  price,\n  \"slug\": productSlug.current,\n  productImage{\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption,\n  }\n} | order(_createdAt desc)\n  ": PRODUCTSResult;
+    "\n*[_type == \"products\"]{\n  _id,\n  _createdAt,\n  title,\n  tags[],\n  price,\n  \"slug\": productSlug.current,\n  productImage{\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption,\n  }\n}\n  ": PRODUCTSResult;
     "\n*[_type == \"siteSettings\"]{\n  _id,\n  heroHeadingDescription,\n  heroHeadingText,\n}": HERO_SECTION_SETTINGSResult;
     "\n*[_type == \"products\" && bestSeller == true] {\n  _id,\n  title,\n  price,\n  \"slug\": productSlug.current,\n  productImage {\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption\n  }\n}": BESTSELLER_PRODUCTSResult;
     "\n*[_type == \"siteSettings\"]{\n  _id,\n  announcementBar,\n  announcementBarText\n}": ANNOUNCEMENT_BAR_SETTIGNSResult;

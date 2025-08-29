@@ -25,20 +25,3 @@
     padding: 100px var(--spacing-xl) 50px;
   }
 }
-
-// just initial loading state untill we implement the full loading logic
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  animation: loading 1s ease-in-out infinite;
-  @keyframes loading {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-}

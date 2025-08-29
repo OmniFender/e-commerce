@@ -70,7 +70,7 @@ export const PRODUCTS = defineQuery(`
     },
     caption,
   }
-} | order(_createdAt desc)
+}
   `);
 
 export const HERO_SECTION_SETTINGS = defineQuery(`

@@ -70,6 +70,16 @@ li * {
   border: 1px solid rgba(108, 117, 125, 0.1);
 }
 
-h1, h2 {
-  font-family: 'rubik', sans-serif;
+h1,
+h2 {
+  font-family: "rubik", sans-serif;
+}
+
+select,
+select::picker(select) {
+  appearance: base-select;
+}
+
+::picker(select) {
+  border: none;
 }
