@@ -5,10 +5,10 @@ import classes from "./products-sorting.module.scss";
 function ProductsSorting({
   onChange,
 }: {
-  onChange: (sortTerm: string, priceRange: [number, number]) => void;
+  onChange: (sortTerm: string) => void;
 }) {
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    onChange(event.target.value, [0, 160]);
+    onChange(event.target.value);
   };
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { client } from "@/sanity/lib/client";
 import { PRODUCTSResult } from "@/sanity/types";
@@ -16,19 +16,10 @@ const options = { next: { revalidate: 60 } };
 function ProductWrapper() {
   const [products, setProducts] = useState<PRODUCTSResult>([]);
   const [query, setQuery] = useState<string>(PRODUCTS);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  // function handleSortingChange(sortTerm: string) {
-  //   if (sortTerm) {
-  //     setQuery(`${PRODUCTS} | order(${sortTerm})`);
-  //   } else {
-  //     setQuery(PRODUCTS);
-  //   }
-  // }
-  function handleProductsChange(
-    sortTerm: string,
-    priceRange: [number, number]
-  ) {
-    if (priceRange || sortTerm) {
+  function handleFilterChange(priceRange: [number, number]) {
+    if (priceRange) {
       setQuery(
         `*[_type == "products" && price >= ${priceRange[0]} && price <= ${priceRange[1]}]{
             _id,
@@ -45,22 +36,30 @@ function ProductWrapper() {
                   dimensions {
                     width,
                     height
-                  },
-                  lqip
+                    },
+                    lqip
                 }
-              },
-              caption,
+                },
+                caption,
           }
-        } ${sortTerm ? `| order(${sortTerm})` : ""}`
+          }`
       );
     } else {
       setQuery(PRODUCTS);
     }
   }
 
+  function handleSortingChange(sortTerm: string) {
+    if (sortTerm) {
+      setQuery((prev) => `${prev} | order(${sortTerm})`);
+    } else {
+      setQuery(PRODUCTS);
+    }
+  }
   useEffect(() => {
     (async function fetchProducts() {
       try {
+        setLoading(true);
         const productsData = await client.fetch(query, {}, options);
         if (productsData) {
           setProducts(productsData);
@@ -68,23 +67,31 @@ function ProductWrapper() {
       } catch (error) {
         console.error("Error fetching products: ", error);
       } finally {
+        setLoading(false);
         if (!products) {
           setProducts([]);
         }
       }
     })();
-  }, [products, query]);
+  }, [query]);
 
   return (
     <>
       <div className={classes.filters}>
-        <FilterPriceModal onChange={handleProductsChange} max={160} />
-        <ProductsSorting onChange={handleProductsChange} />
+        <FilterPriceModal
+          onChange={([min, max]) =>
+            handleFilterChange([Number(min), Number(max)])
+          }
+        />
+        <ProductsSorting
+          onChange={(sortTerm) => handleSortingChange(sortTerm)}
+        />
       </div>
-      {/** Suspense is not gonna work here as it is a client component now! */}
-      <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
+      {loading ? (
+        <div className={classes.loading}>Loading...</div>
+      ) : (
         <ProductsGrid products={products} />
-      </Suspense>
+      )}
     </>
   );
 }

@@ -4,9 +4,15 @@
   justify-content: space-between;
   margin: 80px auto;
 }
+@media screen and (max-width: 500px) {
+  .filters {
+    flex-direction: column-reverse;
+    gap: var(--spacing-xl);
+  }
+}
 
-// just initial loading state untill we implement the full loading logic
 .loading {
+  min-height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
