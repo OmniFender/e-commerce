@@ -25,6 +25,7 @@
   }
   &__modal {
     width: 50%;
+    min-width: 340px;
     padding: 1rem;
     background-color: white;
     border-radius: var(--border-radius-sm);
