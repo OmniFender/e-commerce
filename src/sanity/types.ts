@@ -325,6 +325,11 @@ export type ANNOUNCEMENT_BAR_SETTIGNSResult = Array<{
   announcementBar: boolean | null;
   announcementBarText: string | null;
 }>;
+// Variable: MAX_PRICE
+// Query: *[_type == "products"] | order(price desc)[0]{  price}
+export type MAX_PRICEResult = {
+  price: number | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -337,5 +342,6 @@ declare module "@sanity/client" {
     "\n*[_type == \"siteSettings\"]{\n  _id,\n  heroHeadingDescription,\n  heroHeadingText,\n}": HERO_SECTION_SETTINGSResult;
     "\n*[_type == \"products\" && bestSeller == true] {\n  _id,\n  title,\n  price,\n  \"slug\": productSlug.current,\n  productImage {\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption\n  }\n}": BESTSELLER_PRODUCTSResult;
     "\n*[_type == \"siteSettings\"]{\n  _id,\n  announcementBar,\n  announcementBarText\n}": ANNOUNCEMENT_BAR_SETTIGNSResult;
+    "\n*[_type == \"products\"] | order(price desc)[0]{\n  price\n}\n": MAX_PRICEResult;
   }
 }
