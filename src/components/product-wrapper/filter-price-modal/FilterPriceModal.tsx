@@ -22,6 +22,7 @@ export default function FilterPriceModal({
   const [priceRange, setPriceRange] = useState<[number, number]>([0, maxprice]);
 
   const filterRef = useRef<HTMLDivElement>(null);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   const showResult = priceRange[0] !== 0 || priceRange[1] !== maxprice;
 
@@ -32,7 +33,10 @@ export default function FilterPriceModal({
   const handleSliderChange = (value: number | number[]) => {
     if (Array.isArray(value) && value.length === 2) {
       setPriceRange([value[0], value[1]]);
-      onChange(priceRange);
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => {
+        onChange([value[0], value[1]]);
+      }, 300);
     }
   };
 
@@ -55,6 +59,9 @@ export default function FilterPriceModal({
         console.error("Error fetching max price:", err);
       }
     })();
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
   }, []);
 
   return (
