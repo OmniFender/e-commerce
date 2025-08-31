@@ -1,0 +1,116 @@
+.FilterPriceModal {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+  &__button {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 0.5rem 1rem;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--border-radius-full);
+      background-color: var(--bg-secondary-color);
+      padding: var(--spacing-2xs);
+      transition: transform 0.3s ease;
+      &--active {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  &__modal {
+    width: 50%;
+    min-width: 400px;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--bg-secondary-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 110%;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    gap: var(--spacing-md);
+    span {
+      width: 100px;
+      padding: var(--spacing-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-xs);
+    }
+    &__slider {
+      margin: 1rem 0;
+      display: flex;
+    }
+  }
+  &__result {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: var(--bg-secondary-color);
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: var(--font-size-sm);
+    span {
+      user-select: none;
+    }
+    &-clear {
+      cursor: pointer;
+      padding: var(--spacing-xs);
+      font-size: var(--font-size-xs);
+      font-weight: bold;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .FilterPriceModal {
+    flex-direction: column;
+    width: 100%;
+    &__modal {
+      width: 100%;
+      min-width: auto;
+      left: 50%;
+      padding: var(--spacing-2xs);
+      transform: translateX(-50%);
+      span {
+        width: 80px;
+      }
+    }
+    &__button {
+      width: 100%;
+      justify-content: center;
+    }
+    &__result {
+      width: 70%;
+      max-width: 130px;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .FilterPriceModal {
+    &__modal {
+      padding: 6px;
+      transform: translateX(-50%);
+      gap: 0px;
+      span {
+        width: 70px;
+        font-size: 10px;
+        padding: var(--spacing-2xs) 0;
+      }
+    }
+  }
+}

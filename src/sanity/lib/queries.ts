@@ -108,3 +108,12 @@ export const ANNOUNCEMENT_BAR_SETTIGNS = defineQuery(`
   announcementBar,
   announcementBarText
 }`);
+
+
+
+export const MAX_PRICE = defineQuery(`
+*[_type == "products"] | order(price desc)[0]{
+  price
+}
+`);
+

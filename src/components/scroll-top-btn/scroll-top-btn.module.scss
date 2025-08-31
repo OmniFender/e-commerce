@@ -7,17 +7,15 @@
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-sm);
   border: 2px solid var(--accent-color);
-  transition: all 0.2s ease;
-  animation: slideIn 0.4s ease-out;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(100%);
 }
-@keyframes slideIn {
-  0% {
-    transform: translate(100%, 100%);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
+.show {
+  opacity: 1;
+  transform: translateY(0);
 }
+
 .Btn_scrollTop:hover {
   background-color: var(--accent-hover);
   color: var(--primary-color);

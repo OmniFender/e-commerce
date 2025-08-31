@@ -68,7 +68,7 @@ export default function ProductCard({
           className={classes["featured-products__container-item-cta"]}
           onClick={() => setIsOpen(true)}
         >
-          + Quick add
+          + <span>Quick add</span>
         </button>
       </div>
       <Modal

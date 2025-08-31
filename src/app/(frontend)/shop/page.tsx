@@ -11,6 +11,7 @@ function page() {
           headingText="Shopping"
           descriptionText="Life’s short. Buy the clothes, wear the smile."
         />
+
         <ProductWrapper />
       </section>
     </>
