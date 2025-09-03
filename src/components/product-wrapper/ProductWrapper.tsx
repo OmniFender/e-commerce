@@ -69,7 +69,6 @@ function ProductWrapper() {
     const sortQuery = sort ? `| order(${sort})` : "";
     setQuery(`${baseQuery}${projection} ${sortQuery}`);
   }, [filter, sort]);
-
   useEffect(() => {
     (async function fetchProducts() {
       try {
