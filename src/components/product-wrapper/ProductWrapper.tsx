@@ -6,12 +6,14 @@ import { client } from "@/sanity/lib/client";
 import { PRODUCTSResult } from "@/sanity/types";
 import { PRODUCTS } from "@/sanity/lib/queries";
 
+import Pagination from "./pagination/Pagination";
 import classes from "./product-wrapper.module.scss";
 import ProductsGrid from "../products-grid/ProductsGrid";
 import ProductsSorting from "./products-sorting/ProductsSorting";
 import FilterPriceModal from "./filter-price-modal/FilterPriceModal";
 
 const options = { next: { revalidate: 60 } };
+const ITEMS_PER_PAGE = 6;
 
 function ProductWrapper() {
   const [products, setProducts] = useState<PRODUCTSResult>([]);
@@ -22,12 +24,17 @@ function ProductWrapper() {
   const [query, setQuery] = useState<string>(PRODUCTS);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
+
   function handleFilterChange(priceRange: [number, number]) {
     if (priceRange) {
       setFilter(priceRange);
     } else {
       setFilter(null);
     }
+    setCurrentPage(0);
   }
 
   function handleSortingChange(sortTerm: string) {
@@ -36,6 +43,15 @@ function ProductWrapper() {
     } else {
       setSort(null);
     }
+    setCurrentPage(0);
+  }
+
+  function handleNextPage() {
+    setCurrentPage((prev) => prev + ITEMS_PER_PAGE);
+  }
+
+  function handlePrevPage() {
+    setCurrentPage((prev) => Math.max(0, prev - ITEMS_PER_PAGE));
   }
 
   useEffect(() => {
@@ -43,8 +59,11 @@ function ProductWrapper() {
     if (filter) {
       filterQuery = `price >= ${filter[0]} && price <= ${filter[1]}`;
     }
-    const baseQuery = `*[_type == "products"${filterQuery ? ` && ${filterQuery}` : ""}]`;
-    const projection = `{
+    const baseQuery = `_type == "products"${filterQuery ? ` && ${filterQuery}` : ""}`;
+    const sortQuery = sort ? `| order(${sort})` : "";
+
+    const query = `{
+      "items": *[${baseQuery}]${sortQuery}[${currentPage}...${currentPage + ITEMS_PER_PAGE}]{
       _id,
       _createdAt,
       title,
@@ -65,17 +84,20 @@ function ProductWrapper() {
         },
         caption,
       }
-    }`;
-    const sortQuery = sort ? `| order(${sort})` : "";
-    setQuery(`${baseQuery}${projection} ${sortQuery}`);
-  }, [filter, sort]);
+    },
+    "total": count(*[${baseQuery}])
+  }`;
+    setQuery(query);
+  }, [currentPage, filter, sort]);
 
   useEffect(() => {
     (async function fetchProducts() {
       try {
         setLoading(true);
         const productsData = await client.fetch(query, {}, options);
-        setProducts(productsData || []);
+        setProducts(productsData.items || []);
+        setTotalCount(productsData.total);
+        setHasMore(currentPage + ITEMS_PER_PAGE < productsData.total);
       } catch (error) {
         console.error("Error fetching products: ", error);
         setProducts([]);
@@ -83,7 +105,7 @@ function ProductWrapper() {
         setLoading(false);
       }
     })();
-  }, [query]);
+  }, [currentPage, query]);
 
   return (
     <>
@@ -102,6 +124,15 @@ function ProductWrapper() {
       ) : (
         <ProductsGrid products={products} />
       )}
+      <Pagination
+        currentPage={Math.floor(currentPage / ITEMS_PER_PAGE) + 1}
+        totalPages={Math.ceil(totalCount / ITEMS_PER_PAGE)}
+        hasNext={hasMore}
+        hasPrev={currentPage > 0}
+        handleNextButton={handleNextPage}
+        handlePreviousButton={handlePrevPage}
+        totalItems={totalCount}
+      />
     </>
   );
 }
