@@ -4,7 +4,8 @@ import { footerAdditionalSection } from "./footerAdditionalSection";
 import { categories } from "./categories";
 import { products } from "./products";
 import { siteSettings } from "./siteSettings";
+import { sizes } from './sizes'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [footerInfo, footerAdditionalSection, categories, products, siteSettings],
+  types: [footerInfo, footerAdditionalSection, categories, products, siteSettings, sizes],
 };

@@ -1,3 +1,13 @@
 .product-page {
   padding: 150px var(--spacing-3xl) 50px;
 }
+@media screen and (max-width: 950px) {
+  .product-page {
+    padding: 100px var(--spacing-lg) 30px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .product-page {
+    padding: 80px var(--spacing-lg);
+  }
+}

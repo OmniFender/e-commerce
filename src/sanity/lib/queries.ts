@@ -109,11 +109,48 @@ export const ANNOUNCEMENT_BAR_SETTIGNS = defineQuery(`
   announcementBarText
 }`);
 
-
-
 export const MAX_PRICE = defineQuery(`
 *[_type == "products"] | order(price desc)[0]{
   price
 }
 `);
 
+export const PRODUCT_BY_SLUG = defineQuery(`
+*[_type == "products" && productSlug.current == $slug][0]{
+  _id,
+  _createdAt,
+  description,
+  badges,
+  sizeGuide{
+    asset->{
+      _id,
+      url,
+      metadata {
+        dimensions {
+          width,
+          height
+        },
+        lqip
+      }
+    },
+    caption,
+    },
+  title,
+  tags[],
+  price,
+  "slug": productSlug.current,
+  productImage{
+    asset->{
+      _id,
+      url,
+      metadata {
+        dimensions {
+          width,
+          height
+        },
+        lqip
+      }
+    },
+    caption,
+  }
+}`);

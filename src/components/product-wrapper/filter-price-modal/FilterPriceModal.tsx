@@ -55,6 +55,7 @@ export default function FilterPriceModal({
         const result = await client.fetch(MAX_PRICE);
         setMaxPrice(result?.price ?? 0);
         setPriceRange([0, result?.price ?? 0]);
+        onChange([0, result?.price ?? 0]);
       } catch (err) {
         console.error("Error fetching max price:", err);
       }
