@@ -1,10 +1,12 @@
 import Image from "next/image";
+
 import { urlFor } from "@/sanity/lib/image";
 import { PRODUCT_BY_SLUGResult } from "@/sanity/types";
 
 import { formattedPrice } from "../../utils/utils";
 
 import classes from "./product-information.module.scss";
+import ZoomContainer from "./zoomContainer";
 
 export default function ProductInfo({
   product,
@@ -15,23 +17,18 @@ export default function ProductInfo({
     ?.split("\n")
     .map((line) => `${line}`);
 
-  console.log(formattedDescription);
   return (
     <div className={classes["product-information"]}>
-      <div className={classes["product-information__image"]}>
-        {product?.productImage ? (
-          <Image
-            src={urlFor(product.productImage)
-              .width(600)
-              .height(750)
-              .quality(90)
-              .auto("format")
-              .url()}
-            alt={product?.productImage?.caption || "Product Image"}
-            width={600}
-            height={750}
+      <div
+        className={classes["product-information__image"]}
+        aria-label={product?.productImage?.caption || "Product Image"}
+      >
+        {product?.productImage && (
+          <ZoomContainer
+            productImage={product?.productImage}
+            className={classes["product-information__image-zoom"]}
           />
-        ) : null}
+        )}
       </div>
       <div className={classes["product-information__details"]}>
         <h1 className={classes["product-information__details-title"]}>
@@ -40,7 +37,7 @@ export default function ProductInfo({
         <span className={classes["product-information__details-price"]}>
           {formattedPrice(product?.price ?? 0)}
         </span>
-        {product?.tags && (
+        {Array.isArray(product?.tags) && (
           <ul className={classes["product-information__details-tags"]}>
             {product.tags.map((tag) => (
               <li
@@ -52,9 +49,9 @@ export default function ProductInfo({
             ))}
           </ul>
         )}
-        {product?.badges && (
+        {Array.isArray(product?.badges) && (
           <div className={classes["product-information__details-badges"]}>
-            {product?.badges.map((badge, index) => (
+            {product.badges.map((badge, index) => (
               <Image
                 key={index}
                 src={urlFor(badge)
