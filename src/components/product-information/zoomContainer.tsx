@@ -1,4 +1,5 @@
 "use client";
+
 import { urlFor } from "@/sanity/lib/image";
 import { PRODUCT_BY_SLUGResult } from "@/sanity/types";
 import InnerImageZoom from "react-inner-image-zoom";
@@ -8,7 +9,7 @@ export default function ZoomContainer({
   productImage,
   className,
 }: {
-  productImage: PRODUCT_BY_SLUGResult["productImage"];
+  productImage: NonNullable<NonNullable<PRODUCT_BY_SLUGResult>["productImage"]>;
   className?: string;
 }) {
   if (!productImage || !productImage.asset) {
