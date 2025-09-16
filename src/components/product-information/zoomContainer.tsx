@@ -37,14 +37,7 @@ export default function ZoomContainer({
     .url();
 
   if (!src || !zoomSrc) {
-    return (
-      <div
-        className={className}
-        style={{ textAlign: "center", padding: "2rem" }}
-      >
-        <span>Image not found</span>
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -56,6 +49,7 @@ export default function ZoomContainer({
       hasSpacer={true}
       fadeDuration={200}
       className={className}
+      
     />
   );
 }

@@ -46,13 +46,45 @@ export const products = defineType({
       description:
         "badges for the product like quality and fast shipping that will appear on the product page",
       type: "array",
-      of: [{ type: "image" }],
+      of: [
+        {
+          name: "badge",
+          title: "Badge name",
+          type: "image",
+          options: {
+            hotspot: true,
+            accept: "image/*",
+            metadata: ["lqip", "blurhash", "exif"],
+          },
+          fields: [
+            defineField({
+              name: "caption",
+              title: "Alternative text",
+              description: "Important for SEO and accessibility",
+              type: "string",
+            }),
+          ],
+        },
+      ],
     }),
     defineField({
       name: "sizeGuide",
       title: "Size Guide",
       description: "A guide to the sizes available for the product",
       type: "image",
+      options: {
+        hotspot: true,
+        accept: "image/*",
+        metadata: ["lqip", "blurhash", "exif"],
+      },
+      fields: [
+        defineField({
+          name: "caption",
+          title: "Alternative text",
+          description: "Important for SEO and accessibility",
+          type: "string",
+        }),
+      ],
     }),
     defineField({
       name: "price",

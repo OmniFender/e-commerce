@@ -54,7 +54,8 @@ export type Products = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    _type: "image";
+    caption?: string;
+    _type: "badge";
     _key: string;
   }>;
   sizeGuide?: {
@@ -67,6 +68,7 @@ export type Products = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    caption?: string;
     _type: "image";
   };
   price?: number;
@@ -388,7 +390,8 @@ export type PRODUCT_BY_SLUGResult = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    _type: "image";
+    caption?: string;
+    _type: "badge";
     _key: string;
   }> | null;
   sizeGuide: {
@@ -403,7 +406,7 @@ export type PRODUCT_BY_SLUGResult = {
         lqip: string | null;
       } | null;
     } | null;
-    caption: null;
+    caption: string | null;
   } | null;
   title: string | null;
   tags: Array<string> | null;

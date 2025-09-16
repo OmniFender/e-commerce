@@ -1,22 +1,22 @@
 import Image from "next/image";
 
+import ZoomContainer from "./zoomContainer";
+
 import { urlFor } from "@/sanity/lib/image";
 import { PRODUCT_BY_SLUGResult } from "@/sanity/types";
 
 import { formattedPrice } from "../../utils/utils";
 
 import classes from "./product-information.module.scss";
-import ZoomContainer from "./zoomContainer";
 
+function formattedDescription(description: string) {
+  return description.split("\n").map((line) => `${line}`);
+}
 export default function ProductInfo({
   product,
 }: {
   product: PRODUCT_BY_SLUGResult;
 }) {
-  const formattedDescription = product?.description
-    ?.split("\n")
-    .map((line) => `${line}`);
-
   return (
     <div className={classes["product-information"]}>
       <div
@@ -60,7 +60,7 @@ export default function ProductInfo({
                   .quality(90)
                   .auto("format")
                   .url()}
-                alt={product?.productImage?.caption || "Badge Image"}
+                alt={badge?.caption || "Badge Image"}
                 width={100}
                 height={100}
               />
@@ -68,11 +68,11 @@ export default function ProductInfo({
           </div>
         )}
         {product?.description && (
-          <div className={classes["product-information__details-description"]}>
-            {formattedDescription?.map((line, index) => (
-              <p key={index}>{line}</p>
+          <ul className={classes["product-information__details-description"]}>
+            {formattedDescription(product?.description).map((line, index) => (
+              <li key={index}>{line}</li>
             ))}
-          </div>
+          </ul>
         )}
         {product?.sizeGuide && (
           <div className={classes["product-information__details-size-guide"]}>
@@ -83,7 +83,7 @@ export default function ProductInfo({
                 .quality(90)
                 .auto("format")
                 .url()}
-              alt={product?.sizeGuide?.caption || "Size Guide"}
+              alt={product?.sizeGuide?.caption || "Size Guide for the product"}
               width={400}
               height={450}
             />

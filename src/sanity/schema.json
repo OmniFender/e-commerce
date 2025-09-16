@@ -232,11 +232,18 @@
                 },
                 "optional": true
               },
+              "caption": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
               "_type": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string",
-                  "value": "image"
+                  "value": "badge"
                 }
               }
             },
@@ -310,6 +317,13 @@
               "value": {
                 "type": "inline",
                 "name": "sanity.imageCrop"
+              },
+              "optional": true
+            },
+            "caption": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
               },
               "optional": true
             },
