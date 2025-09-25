@@ -13,6 +13,15 @@
  */
 
 // Source: schema.json
+export type Sizes = {
+  _id: string;
+  _type: "sizes";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  sizes?: string;
+};
+
 export type SiteSettings = {
   _id: string;
   _type: "siteSettings";
@@ -35,8 +44,43 @@ export type Products = {
   title?: string;
   productSlug?: Slug;
   description?: string;
+  badges?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "badge";
+    _key: string;
+  }>;
+  sizeGuide?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+  };
   price?: number;
   tags?: Array<string>;
+  inStock?: boolean;
+  sizes?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "sizes";
+  }>;
   category?: {
     _ref: string;
     _type: "reference";
@@ -215,7 +259,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = SiteSettings | Products | Categories | FooterAdditionalSection | FooterInfo | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Sizes | SiteSettings | Products | Categories | FooterAdditionalSection | FooterInfo | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: FOOTER_INFO
@@ -330,6 +374,59 @@ export type ANNOUNCEMENT_BAR_SETTIGNSResult = Array<{
 export type MAX_PRICEResult = {
   price: number | null;
 } | null;
+// Variable: PRODUCT_BY_SLUG
+// Query: *[_type == "products" && productSlug.current == $slug][0]{  _id,  _createdAt,  description,  badges,  sizeGuide{    asset->{      _id,      url,      metadata {        dimensions {          width,          height        },        lqip      }    },    caption,    },  title,  tags[],  price,  "slug": productSlug.current,  productImage{    asset->{      _id,      url,      metadata {        dimensions {          width,          height        },        lqip      }    },    caption,  }}
+export type PRODUCT_BY_SLUGResult = {
+  _id: string;
+  _createdAt: string;
+  description: string | null;
+  badges: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "badge";
+    _key: string;
+  }> | null;
+  sizeGuide: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+        lqip: string | null;
+      } | null;
+    } | null;
+    caption: string | null;
+  } | null;
+  title: string | null;
+  tags: Array<string> | null;
+  price: number | null;
+  slug: string | null;
+  productImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+        lqip: string | null;
+      } | null;
+    } | null;
+    caption: string | null;
+  } | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -343,5 +440,6 @@ declare module "@sanity/client" {
     "\n*[_type == \"products\" && bestSeller == true] {\n  _id,\n  title,\n  price,\n  \"slug\": productSlug.current,\n  productImage {\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption\n  }\n}": BESTSELLER_PRODUCTSResult;
     "\n*[_type == \"siteSettings\"]{\n  _id,\n  announcementBar,\n  announcementBarText\n}": ANNOUNCEMENT_BAR_SETTIGNSResult;
     "\n*[_type == \"products\"] | order(price desc)[0]{\n  price\n}\n": MAX_PRICEResult;
+    "\n*[_type == \"products\" && productSlug.current == $slug][0]{\n  _id,\n  _createdAt,\n  description,\n  badges,\n  sizeGuide{\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption,\n    },\n  title,\n  tags[],\n  price,\n  \"slug\": productSlug.current,\n  productImage{\n    asset->{\n      _id,\n      url,\n      metadata {\n        dimensions {\n          width,\n          height\n        },\n        lqip\n      }\n    },\n    caption,\n  }\n}": PRODUCT_BY_SLUGResult;
   }
 }

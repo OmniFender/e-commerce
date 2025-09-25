@@ -32,9 +32,59 @@ export const products = defineType({
     defineField({
       name: "description",
       title: "Description",
-      description: "A brief description of the product",
+      description:
+        "A brief description of the product that will appear on the product page, please enter the description as bullet points for better readability",
       type: "text",
-      placeholder: "Enter product description",
+      placeholder:
+        "enter the description as bullet points for better readability",
+      validation: (Rule) =>
+        Rule.required().error("Product description is required"),
+    }),
+    defineField({
+      name: "badges",
+      title: "Badges",
+      description:
+        "badges for the product like quality and fast shipping that will appear on the product page",
+      type: "array",
+      of: [
+        {
+          name: "badge",
+          title: "Badge name",
+          type: "image",
+          options: {
+            hotspot: true,
+            accept: "image/*",
+            metadata: ["lqip", "blurhash", "exif"],
+          },
+          fields: [
+            defineField({
+              name: "caption",
+              title: "Alternative text",
+              description: "Important for SEO and accessibility",
+              type: "string",
+            }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: "sizeGuide",
+      title: "Size Guide",
+      description: "A guide to the sizes available for the product",
+      type: "image",
+      options: {
+        hotspot: true,
+        accept: "image/*",
+        metadata: ["lqip", "blurhash", "exif"],
+      },
+      fields: [
+        defineField({
+          name: "caption",
+          title: "Alternative text",
+          description: "Important for SEO and accessibility",
+          type: "string",
+        }),
+      ],
     }),
     defineField({
       name: "price",
@@ -42,7 +92,7 @@ export const products = defineType({
       description: "The price of the product in USD",
       type: "number",
       placeholder: "Enter product price",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().error("Product price is required"),
     }),
     defineField({
       name: "tags",
@@ -50,6 +100,21 @@ export const products = defineType({
       description: "The tags associated with the product 'optional' ",
       type: "array",
       of: [{ type: "string" }],
+    }),
+    defineField({
+      name: "inStock",
+      title: "In Stock",
+      description: "Is the product in stock?",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({
+      name: "sizes",
+      title: "Sizes",
+      description: "the available sizes for the product",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "sizes" }] }],
+      validation: (rule) => rule.required().error("Please select a size"),
     }),
     defineField({
       name: "category",
